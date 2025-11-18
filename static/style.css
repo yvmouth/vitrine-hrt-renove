@@ -7,7 +7,7 @@
   --color-bg-header: #ffffff;
   --color-bg-section: #f5f7fb;
   --color-bg-card: #ffffff;
-  --color-primary: #e42127;   /* rouge bouton / accents */
+  --color-primary: #e42127;   /* rouge bouton / accents (index/services) */
   --color-primary-soft: rgba(228, 33, 39, 0.08);
   --color-text-main: #111827;
   --color-text-muted: #6b7280;
@@ -49,7 +49,6 @@ body {
 body.nav-open {
   overflow: hidden;
 }
-
 
 img {
   max-width: 100%;
@@ -351,6 +350,19 @@ ul {
   background: var(--color-primary-soft);
 }
 
+/* bouton outline gris pour "Contact" (À propos hero) */
+.btn-ghost {
+  background: transparent;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.btn-ghost:hover {
+  border-color: #9ca3af;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+  background: #ffffff;
+}
+
 .btn-cta {
   padding-inline: 1.9rem;
 }
@@ -380,9 +392,8 @@ ul {
   box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
 }
 
-
 /**************************************************************
- * 4. HERO
+ * 4. HERO (PAGE D'ACCUEIL)
  *************************************************************/
 
 .hero {
@@ -541,9 +552,8 @@ ul {
   display: grid;
   grid-template-columns: repeat(3, minmax(260px, 340px));
   gap: 1.8rem;
-  justify-content: center;   /* 🔥 centre TOUTE la grille dans la container */
+  justify-content: center;
 }
-
 
 /* Ligne 1 : 3 cartes (liens directs dans la grille) */
 .cards-grid > .card-link {
@@ -562,11 +572,10 @@ ul {
   justify-content: center;
   gap: 1.8rem;
 
-  /* 🟢 Fix pour centrer le bouton en dessous */
+  /* Fix pour centrer le bouton en dessous */
   width: 100%;
   max-width: 100%;
 }
-
 
 .cards-row-bottom .card {
   width: 100%;
@@ -653,11 +662,11 @@ ul {
 .section-cta {
   width: 100%;
   margin-top: 2.4rem;
-  text-align: center;      /* centre le contenu dans la largeur */
+  text-align: center;
 }
 
 .section-cta .btn {
-  display: inline-flex;    /* reste un joli bouton */
+  display: inline-flex;
   justify-content: center;
   align-items: center;
 }
@@ -778,10 +787,432 @@ ul {
 }
 
 /**************************************************************
- * 8. RESPONSIVE
+ * 8. PAGE A PROPOS
  *************************************************************/
 
-/* 🌟 TABLETTES – max 900px */
+/* padding vertical standard pour les sections de cette page */
+.section-padding {
+  padding: 5rem 0;
+}
+
+/* Container un peu plus large pour cette page */
+.about-page .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Fond gris très léger pour alterner les sections */
+.section-alt {
+  background: #f2f4f8;
+}
+
+/* Séparateur très subtil entre les sections de la page À propos */
+.about-page section + section {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Pas de bordure pour les sections alternées gris clair */
+.about-page .section-alt {
+  border-top: none;
+}
+
+/* (Optionnel) Carte pleine largeur si tu veux encadrer une section */
+.section-box {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 22px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+  padding: 3rem 2.5rem;
+  margin-bottom: 4rem;
+}
+
+/* Titres & sous-titres génériques de la page A propos (fond clair) */
+.about-page .section-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 1.2rem;
+}
+
+.about-page .section-subtitle {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+.about-page .section-title.center,
+.about-page .section-subtitle.center {
+  text-align: center;
+}
+
+/* Hero A propos : titre + sous-titre */
+.about-hero .section-title {
+  color: #111827;   /* titre sombre sur fond clair */
+}
+
+.about-hero .section-subtitle {
+  color: #6b7280;   /* gris texte standard */
+}
+
+/* HERO -----------------------------------------------------*/
+
+.about-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: center;
+}
+
+.about-hero__text .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.8rem;
+  color: var(--color-primary); /* rouge du site */
+  margin-bottom: 0.6rem;
+}
+
+.about-hero__buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.about-hero__visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* Image dans le hero (remplace l’ancien bloc noir) */
+.about-hero__image-placeholder {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
+  border-radius: 1.2rem;
+  background-image: url('/static/img/A-propos.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+}
+
+/* Carré rouge accent en bas à droite de l’image */
+.about-hero__accent-square {
+  position: absolute;
+  bottom: -32px;
+  right: 10%;
+  width: 110px;
+  height: 110px;
+  border-radius: 1rem;
+  background: var(--color-primary);
+}
+
+/* DESCRIPTION ----------------------------------------------*/
+
+.about-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #151515;
+  border-radius: 1.4rem;
+  padding: 2.5rem 2.8rem;
+  border: 1px solid #262626;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.about-card h2 {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.about-card p {
+  color: #e5e5e5;
+}
+
+.about-card p + p {
+  margin-top: 1rem;
+}
+
+/* TIMELINE -------------------------------------------------*/
+
+.about-timeline {
+  position: relative;
+}
+
+.timeline {
+  position: relative;
+  margin-top: 3rem;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: linear-gradient(#262626, #3f3f3f);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 1.5rem 0;
+}
+
+.timeline-item.left {
+  padding-right: 3rem;
+  text-align: right;
+}
+
+.timeline-item.right {
+  margin-left: 50%;
+  padding-left: 3rem;
+}
+
+.timeline-card {
+  display: inline-block;
+  background: #151515;
+  border-radius: 1.2rem;
+  border: 1px solid #262626;
+  padding: 1.5rem 1.8rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.timeline-year {
+  font-weight: 700;
+  color: var(--color-primary); /* rouge du site */
+  margin-bottom: 0.5rem;
+}
+
+.timeline-card h3 {
+  color: #ffffff;
+}
+
+.timeline-card p {
+  color: #d4d4d4;
+}
+
+/* Points sur la ligne centrale */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #f97316;  /* tu peux aussi passer ça en var(--color-primary) si tu veux tout rouge */
+  border: 3px solid #111111;
+  transform: translateY(-50%);
+}
+
+.timeline-item.left::before {
+  right: -5px;
+}
+
+.timeline-item.right::before {
+  left: -5px;
+}
+
+/* PROJETS PHARES -------------------------------------------*/
+
+.about-projects .section-title {
+  color: var(--color-text-main);
+}
+
+.about-projects .section-subtitle {
+  color: var(--color-text-muted);
+}
+
+.projects-grid {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background: #151515;
+  border-radius: 1.2rem;
+  border: 1px solid #262626;
+  overflow: hidden;
+}
+
+.project-images {
+  position: relative;
+  background: #181818;
+  height: 190px;
+}
+
+.badge {
+  position: absolute;
+  top: 1rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+}
+
+.badge-dark {
+  left: 1.2rem;
+  background: #111111;
+  color: #f5f5f5;
+}
+
+.badge-accent {
+  right: 1.2rem;
+  background: var(--color-primary); /* rouge */
+  color: #ffffff;
+}
+
+.project-content {
+  padding: 1.3rem 1.4rem 1.5rem;
+}
+
+.project-tag {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #f97316; /* laisse en orange si tu veux différencier le type de projet */
+  margin-bottom: 0.4rem;
+}
+
+.project-content h3 {
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.project-content p {
+  color: #d4d4d4;
+}
+
+/* OBJECTIFS FUTURS -----------------------------------------*/
+
+.about-future {
+  border-top: 1px solid #d1d5db;
+}
+
+.about-future .section-title {
+  color: var(--color-text-main);
+}
+
+.about-future .section-subtitle {
+  color: var(--color-text-muted);
+}
+
+.future-grid {
+  margin-top: 2.8rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.future-card {
+  background: #151515;
+  border-radius: 1.2rem;
+  border: 1px solid #262626;
+  text-align: center;
+  padding: 2rem 1.6rem;
+}
+
+.future-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.future-card h3 {
+  color: #ffffff;
+  margin-bottom: 0.7rem;
+}
+
+.future-card p {
+  color: #d4d4d4;
+}
+
+.about-future__cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+/**************************************************************
+ * ANIMATIONS SCROLL – A PROPOS
+ * (fade + léger mouvement, différentes des services)
+ **************************************************************/
+
+/* état initial : caché / légèrement décalé */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  will-change: opacity, transform;
+}
+
+/* quand l’élément devient visible */
+.reveal-on-scroll.is-visible {
+  animation: fadeUpSoft 0.7s ease-out forwards;
+}
+
+/* Variante plus latérale (pour la timeline si tu veux) */
+.reveal-on-scroll-left {
+  opacity: 0;
+  transform: translateX(-24px);
+}
+
+.reveal-on-scroll-left.is-visible {
+  animation: fadeInLeftSoft 0.7s ease-out forwards;
+}
+
+.reveal-on-scroll-right {
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+.reveal-on-scroll-right.is-visible {
+  animation: fadeInRightSoft 0.7s ease-out forwards;
+}
+
+/* Petites delays pour l’effet “stagger” */
+.reveal-delay-1 { animation-delay: 0.05s; }
+.reveal-delay-2 { animation-delay: 0.12s; }
+.reveal-delay-3 { animation-delay: 0.2s; }
+.reveal-delay-4 { animation-delay: 0.3s; }
+
+/* Keyframes très soft */
+@keyframes fadeUpSoft {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInLeftSoft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRightSoft {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/**************************************************************
+ * 9. RESPONSIVE GLOBAL + A PROPOS
+ *************************************************************/
+
+/* TABLETTES – max 900px */
 @media (max-width: 900px) {
   .hero-content {
     align-items: flex-start;
@@ -798,16 +1229,14 @@ ul {
     justify-items: center;
   }
 
-  /* Ligne du bas toujours centrée */
-.cards-row-bottom {
-  grid-column: 1 / 4;
-  display: flex;
-  justify-content: center;
-  gap: 1.8rem;
-  width: 100%;
-  max-width: 100%;
-}
-
+  .cards-row-bottom {
+    grid-column: 1 / 4;
+    display: flex;
+    justify-content: center;
+    gap: 1.8rem;
+    width: 100%;
+    max-width: 100%;
+  }
 
   .cards-row-bottom .card-link {
     flex: 1 1 min(260px, 100%);
@@ -832,9 +1261,43 @@ ul {
   .service-card.in-view {
     transform: translateY(0);
   }
+
+  /* A PROPOS - hero & timeline */
+  .about-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-line {
+    left: 10px;
+  }
+
+  .timeline-item,
+  .timeline-item.right,
+  .timeline-item.left {
+    width: 100%;
+    margin-left: 0;
+    padding-left: 2.3rem;
+    padding-right: 0;
+    text-align: left;
+  }
+
+  .timeline-item.left::before,
+  .timeline-item.right::before {
+    left: 5px;
+    right: auto;
+  }
+
+  .projects-grid,
+  .future-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero__accent-square {
+    display: none;
+  }
 }
 
-/* 🌟 MOBILES – max 640px */
+/* MOBILES – max 640px */
 @media (max-width: 640px) {
   .hero {
     padding-top: 72px;
@@ -860,10 +1323,9 @@ ul {
   .cards-row-bottom {
     grid-column: 1 / 2;
     flex-direction: column;
-    align-items: center; /* centre le contenu horizontalement */
+    align-items: center;
   }
 
-  /* 🔥 Toutes les cartes ont la même largeur */
   .cards-grid .card,
   .cards-row-bottom .card {
     width: 100%;
@@ -875,9 +1337,8 @@ ul {
   }
 }
 
-
 /**************************************************************
- * 9. FOOTER (STYLE TYPE "BAND DARK" EN BAS DE PAGE)
+ * 10. FOOTER
  *************************************************************/
 
 .site-footer {

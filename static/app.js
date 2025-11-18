@@ -1,5 +1,6 @@
 // SCRIPT GLOBAL DU SITE
 document.addEventListener("DOMContentLoaded", () => {
+
   /* -------------------------------
      MENU BURGER MOBILE
   --------------------------------*/
@@ -55,28 +56,57 @@ document.addEventListener("DOMContentLoaded", () => {
   --------------------------------*/
   const cards = document.querySelectorAll('.service-card');
 
-  if (!('IntersectionObserver' in window) || cards.length === 0) {
+  if (!('IntersectionObserver' in window)) {
+    // Si pas supporté → on affiche tout
     cards.forEach(card => card.classList.add('in-view'));
-    return;
+  } else {
+    // Définir la direction d’animation (gauche / droite)
+    cards.forEach((card, index) => {
+      if (index % 2 === 0) card.classList.add('slide-left');
+      else card.classList.add('slide-right');
+    });
+
+    const observerServices = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    cards.forEach(card => observerServices.observe(card));
   }
 
-  // Définir la direction d’animation (gauche / droite)
-  cards.forEach((card, index) => {
-    if (index % 2 === 0) card.classList.add('slide-left');
-    else card.classList.add('slide-right');
-  });
 
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.2 }
+  /* ----------------------------------------------------------
+     ANIMATIONS SCROLL – PAGE A PROPOS
+     (Soft reveal / fade-in / fade-left / fade-right)
+  -----------------------------------------------------------*/
+  const revealElements = document.querySelectorAll(
+    '.reveal-on-scroll, .reveal-on-scroll-left, .reveal-on-scroll-right'
   );
 
-  cards.forEach(card => observer.observe(card));
+  if (!('IntersectionObserver' in window) || revealElements.length === 0) {
+    // pas supporté → tout visible
+    revealElements.forEach(el => el.classList.add('is-visible'));
+  } else {
+    const observerReveal = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observerReveal.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    revealElements.forEach(el => observerReveal.observe(el));
+  }
+
 });

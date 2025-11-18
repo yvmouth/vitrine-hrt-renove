@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}À propos – HRT Rénove{% endblock %}
+
+{% block content %}
+<main class="about-page">
+
+  <!-- 1) HERO NOTRE HISTOIRE -->
+  <section class="section section-alt about-hero section-padding reveal-on-scroll">
+    <div class="container about-hero__grid">
+      <div class="about-hero__text">
+        <p class="eyebrow">À propos</p>
+        <h1 class="section-title">Notre Histoire</h1>
+        <p class="section-subtitle">
+          Passionné par l’art du traitement de surface depuis plus de 10 ans.
+        </p>
+        <div class="about-hero__buttons">
+          <a href="{{ url_for('index') }}#services" class="btn btn-primary">Nos services</a>
+          <a href="{{ url_for('index') }}#contact" class="btn btn-ghost">Contact</a>
+        </div>
+      </div>
+
+      <div class="about-hero__visual">
+        <div class="about-hero__image-placeholder">
+          <!-- Image gérée via CSS background-image -->
+        </div>
+        <div class="about-hero__accent-square"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) DESCRIPTION DE L’ENTREPRISE -->
+  <section class="section about-description section-padding reveal-on-scroll reveal-delay-1">
+    <div class="container">
+      <div class="about-card">
+        <h2 class="section-title">Une Passion Devenue Expertise</h2>
+        <p>
+          HRT Rénove est né d'une passion pour la transformation et la restauration des matériaux.
+          Depuis notre création en 2015, nous avons développé une expertise unique dans le domaine
+          du traitement de surface industriel.
+        </p>
+        <p>
+          Notre mission est simple : redonner vie à vos pièces métalliques grâce à des techniques
+          de pointe et un savoir-faire artisanal. Chaque projet est une opportunité de démontrer
+          notre engagement envers la qualité et l'excellence.
+        </p>
+        <p>
+          Aujourd'hui, nous sommes fiers d'être reconnus comme l'un des acteurs régionaux en
+          traitement de surface, avec plus de 500 projets réalisés pour des particuliers et des
+          professionnels exigeants.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3) LIGNE DU TEMPS -->
+  <section class="section section-alt about-timeline section-padding reveal-on-scroll">
+    <div class="container">
+      <h2 class="section-title center">Notre Parcours</h2>
+
+      <div class="timeline">
+        <!-- 2015 -->
+        <div class="timeline-item left">
+          <div class="timeline-card reveal-on-scroll-left reveal-delay-1">
+            <div class="timeline-year">2015</div>
+            <h3>Création HRT Rénove</h3>
+            <p>Lancement de l’activité de traitement de surface.</p>
+          </div>
+        </div>
+
+        <!-- 2017 -->
+        <div class="timeline-item right">
+          <div class="timeline-card reveal-on-scroll-right reveal-delay-1">
+            <div class="timeline-year">2017</div>
+            <h3>Expansion des services</h3>
+            <p>Ajout du thermolaquage et du sablage.</p>
+          </div>
+        </div>
+
+        <!-- 2019 -->
+        <div class="timeline-item left">
+          <div class="timeline-card reveal-on-scroll-left reveal-delay-2">
+            <div class="timeline-year">2019</div>
+            <h3>Certification qualité</h3>
+            <p>Obtention de certifications et normes industrielles.</p>
+          </div>
+        </div>
+
+        <!-- 2022 -->
+        <div class="timeline-item right">
+          <div class="timeline-card reveal-on-scroll-right reveal-delay-2">
+            <div class="timeline-year">2022</div>
+            <h3>Innovation technique</h3>
+            <p>Intégration du vaporblasting et de l’aérogommage.</p>
+          </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="timeline-item left">
+          <div class="timeline-card reveal-on-scroll-left reveal-delay-3">
+            <div class="timeline-year">2024</div>
+            <h3>Leadership régional</h3>
+            <p>Plus de 500 projets réalisés avec excellence.</p>
+          </div>
+        </div>
+
+        <div class="timeline-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4) PROJETS PHARES -->
+  <section class="section about-projects section-padding reveal-on-scroll">
+    <div class="container">
+      <h2 class="section-title center">Projets Phares</h2>
+      <p class="section-subtitle center">
+        Découvrez quelques-unes de nos réalisations les plus remarquables.
+      </p>
+
+      <div class="projects-grid">
+        <!-- Projet 1 -->
+        <article class="project-card reveal-on-scroll reveal-delay-1">
+          <div class="project-images">
+            <span class="badge badge-dark">Avant</span>
+            <span class="badge badge-accent">Après</span>
+            <!-- <img ...> -->
+          </div>
+          <div class="project-content">
+            <p class="project-tag">Thermolaquage</p>
+            <h3>Rénovation Portail Industriel</h3>
+          </div>
+        </article>
+
+        <!-- Projet 2 -->
+        <article class="project-card reveal-on-scroll reveal-delay-2">
+          <div class="project-images">
+            <span class="badge badge-dark">Avant</span>
+            <span class="badge badge-accent">Après</span>
+          </div>
+          <div class="project-content">
+            <p class="project-tag">Sablage &amp; Cerakote</p>
+            <h3>Restauration Moto Vintage</h3>
+          </div>
+        </article>
+
+        <!-- Projet 3 -->
+        <article class="project-card reveal-on-scroll reveal-delay-3">
+          <div class="project-images">
+            <span class="badge badge-dark">Avant</span>
+            <span class="badge badge-accent">Après</span>
+          </div>
+          <div class="project-content">
+            <p class="project-tag">Aérogommage</p>
+            <h3>Mobilier Design</h3>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5) OBJECTIFS FUTURS -->
+  <section class="section section-alt about-future section-padding reveal-on-scroll">
+    <div class="container">
+      <h2 class="section-title center">Nos Objectifs Futurs</h2>
+      <p class="section-subtitle center">
+        Construire l’avenir du traitement de surface.
+      </p>
+
+      <div class="future-grid">
+        <div class="future-card reveal-on-scroll reveal-delay-1">
+          <div class="future-icon">🎯</div>
+          <h3>Innovation Continue</h3>
+          <p>Investir dans les dernières technologies de traitement de surface.</p>
+        </div>
+
+        <div class="future-card reveal-on-scroll reveal-delay-2">
+          <div class="future-icon">👥</div>
+          <h3>Croissance d’Équipe</h3>
+          <p>Former une équipe d’experts passionnés par l’excellence.</p>
+        </div>
+
+        <div class="future-card reveal-on-scroll reveal-delay-3">
+          <div class="future-icon">🏆</div>
+          <h3>Excellence Reconnue</h3>
+          <p>Devenir une référence régionale en traitement de surface.</p>
+        </div>
+      </div>
+
+      <div class="about-future__cta reveal-on-scroll reveal-delay-4">
+        <a href="{{ url_for('index') }}#contact" class="btn btn-primary">
+          Rejoignez notre aventure
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+{% endblock %}

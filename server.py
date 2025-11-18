@@ -9,8 +9,11 @@ def index():
 
 @app.route("/services")
 def services():
-    # plus tard, autre template si tu veux une page dédiée
     return render_template("services.html", title="Services - HRT Rénove")
+
+@app.route("/apropos")
+def apropos():
+    return render_template("apropos.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
