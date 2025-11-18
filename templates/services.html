@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Nos services - HRT Rénove{% endblock %}
+
+{% block content %}
+<section class="services-page">
+  <div class="services-hero">
+    <h1>Nos Services</h1>
+    <p>Découvrez en détail nos techniques de traitement de surface professionnelles.</p>
+  </div>
+
+  <div class="services-list">
+
+    <!-- Carte 1 : Aérogommage -->
+    <article class="service-card" id="aerogommage">
+      <div class="service-card-image">
+        <img src="{{ url_for('static', filename='img/services/service-aerogommage.jpg') }}"
+             alt="Aérogommage sur pièce métallique">
+      </div>
+      <div class="service-card-content">
+        <h2>Aérogommage</h2>
+        <p class="service-intro">
+          Technique de décapage douce et précise utilisant l’air comprimé et un abrasif fin,
+          idéale pour les supports délicats.
+        </p>
+
+        <h3>Détails du procédé</h3>
+        <ul>
+          <li>Idéal pour les surfaces délicates et les matériaux sensibles.</li>
+          <li>Nettoyage en profondeur sans déformer le support.</li>
+          <li>Applications : meubles, boiseries, façades, carrosseries, etc.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- Carte 2 : Vaporblasting -->
+    <article class="service-card" id="vaporblasting">
+      <div class="service-card-image">
+        <img src="{{ url_for('static', filename='img/services/service-vaporblasting.jpg') }}"
+             alt="Vaporblasting sur pièce mécanique">
+      </div>
+      <div class="service-card-content">
+        <h2>Vaporblasting</h2>
+        <p class="service-intro">
+          Traitement par mélange eau + abrasif pour une finition satinée et homogène,
+          parfaite pour les pièces mécaniques.
+        </p>
+
+        <h3>Détails du procédé</h3>
+        <ul>
+          <li>Aspect visuel très uniforme et esthétique.</li>
+          <li>Idéal pour carters moteurs, pièces moto, automobile, industrie.</li>
+          <li>Nettoyage sans enlever trop de matière.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- Carte 3 : Cerakote -->
+    <article class="service-card" id="cerakote">
+      <div class="service-card-image">
+        <img src="{{ url_for('static', filename='img/services/service-cerakote.jpg') }}"
+             alt="Application de Cerakote">
+      </div>
+      <div class="service-card-content">
+        <h2>Cerakote</h2>
+        <p class="service-intro">
+          Revêtement céramique ultra-résistant pour protéger vos pièces
+          contre l’usure, la corrosion et les températures élevées.
+        </p>
+
+        <h3>Détails du procédé</h3>
+        <ul>
+          <li>Large choix de couleurs et finitions.</li>
+          <li>Excellente résistance mécanique et chimique.</li>
+          <li>Idéal pour pièces moto, armes, pièces techniques, etc.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- Carte 4 : Thermolaquage -->
+    <article class="service-card" id="thermolaquage">
+      <div class="service-card-image">
+        <img src="{{ url_for('static', filename='img/services/service-thermolaquage.jpg') }}"
+             alt="Thermolaquage sur structure métallique">
+      </div>
+      <div class="service-card-content">
+        <h2>Thermolaquage</h2>
+        <p class="service-intro">
+          Application de peinture poudre cuite au four pour une protection durable
+          et un rendu très propre.
+        </p>
+
+        <h3>Détails du procédé</h3>
+        <ul>
+          <li>Très bonne tenue en extérieur.</li>
+          <li>Idéal pour structures métalliques, portails, garde-corps, etc.</li>
+          <li>Large palette de couleurs disponibles.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- Carte 5 : Sablage / Grenaillage -->
+    <article class="service-card" id="sablage-grenaillage">
+      <div class="service-card-image">
+        <img src="{{ url_for('static', filename='img/services/service-sablage.jpg') }}"
+             alt="Sablage sur acier">
+      </div>
+      <div class="service-card-content">
+        <h2>Sablage / Grenaillage</h2>
+        <p class="service-intro">
+          Décapage intensif pour retirer rouille, peinture et impuretés
+          avant traitement ou peinture.
+        </p>
+
+        <h3>Détails du procédé</h3>
+        <ul>
+          <li>Préparation idéale avant thermolaquage ou peinture.</li>
+          <li>Adapté aux structures lourdes et fortement encrassées.</li>
+          <li>Permet de retrouver un métal propre et adhérent.</li>
+        </ul>
+      </div>
+    </article>
+
+  </div>
+</section>
+{% endblock %}

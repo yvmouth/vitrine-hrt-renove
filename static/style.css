@@ -1,0 +1,953 @@
+/**************************************************************
+ * 0. RESET & VARIABLES
+ *************************************************************/
+
+:root {
+  --color-bg-page: #f5f7fb;
+  --color-bg-header: #ffffff;
+  --color-bg-section: #f5f7fb;
+  --color-bg-card: #ffffff;
+  --color-primary: #e42127;   /* rouge bouton / accents */
+  --color-primary-soft: rgba(228, 33, 39, 0.08);
+  --color-text-main: #111827;
+  --color-text-muted: #6b7280;
+  --color-border-soft: #e5e7eb;
+
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+  --shadow-card-strong: 0 24px 65px rgba(15, 23, 42, 0.18);
+
+  --max-width: 1100px;
+  --section-padding-y: 5rem;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  background: var(--color-bg-page);
+  color: var(--color-text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.nav-open {
+  overflow: hidden;
+}
+
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/**************************************************************
+ * 1. HEADER & NAVIGATION
+ *************************************************************/
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 80px;
+  z-index: 50;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+/* Fond assombri derrière le menu mobile */
+#nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease-out;
+  z-index: 30;
+}
+
+#nav-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo aligné à gauche, mais visuellement centré dans le header */
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-logo img {
+  height: 40px;
+  width: auto;
+}
+
+/* Nav desktop */
+#main-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  color: #4b5563;
+  position: relative;
+  padding-bottom: 0.1rem;
+  transition: color 0.18s ease-out;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.3rem;
+  width: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  transition: width 0.22s ease-out;
+}
+
+.nav-link:hover {
+  color: #111827;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Burger menu (mobile) */
+#menu-toggle {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-out, transform 0.15s ease-out;
+}
+
+#menu-toggle:hover {
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  transform: translateY(-1px);
+}
+
+#menu-toggle span,
+#menu-toggle span::before,
+#menu-toggle span::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: #111827;
+  position: relative;
+  transition:
+    transform 0.22s ease-out,
+    opacity 0.18s ease-out,
+    top 0.18s ease-out;
+}
+
+#menu-toggle span::before,
+#menu-toggle span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+#menu-toggle span::before {
+  top: -5px;
+}
+
+#menu-toggle span::after {
+  top: 5px;
+}
+
+/* État ouvert : burger → croix */
+#menu-toggle.open span {
+  transform: rotate(45deg);
+}
+
+#menu-toggle.open span::before {
+  top: 0;
+  transform: rotate(-90deg);
+}
+
+#menu-toggle.open span::after {
+  top: 0;
+  opacity: 0;
+}
+
+/**************************************************************
+ * 2. MOBILE NAV
+ *************************************************************/
+
+/* petite animation des items du menu */
+@keyframes navItemFade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  /* On affiche le burger à la place du menu "plein écran" */
+  #menu-toggle {
+    display: inline-flex;
+  }
+
+  /* Menu mobile "panneau" qui slide sous le header */
+  #main-nav {
+    position: fixed;
+    inset: 80px 0 auto 0;           /* juste sous le header de 80px */
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.2rem 1.5rem 1.5rem;
+    gap: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
+
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 0.25s ease-out,
+      opacity 0.2s ease-out;
+    z-index: 40;
+  }
+
+  /* Etat ouvert : panneau visible */
+  #main-nav.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Liens pleine largeur + animés */
+  #main-nav .nav-link {
+    width: 100%;
+    padding: 0.3rem 0;
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  #main-nav.open .nav-link {
+    animation: navItemFade 0.25s ease-out forwards;
+  }
+
+  #main-nav.open .nav-link:nth-child(1) {
+    animation-delay: 0.02s;
+  }
+  #main-nav.open .nav-link:nth-child(2) {
+    animation-delay: 0.06s;
+  }
+  #main-nav.open .nav-link:nth-child(3) {
+    animation-delay: 0.1s;
+  }
+}
+
+/**************************************************************
+ * 3. BOUTONS GÉNÉRIQUES
+ *************************************************************/
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.6rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease-out,
+    color 0.2s ease-out,
+    border-color 0.2s ease-out,
+    box-shadow 0.2s ease-out,
+    transform 0.15s ease-out;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #ffffff;
+  box-shadow: 0 14px 35px rgba(228, 33, 39, 0.4);
+}
+
+.btn-primary:hover {
+  background: #cf1c21;
+  transform: translateY(-1px);
+  box-shadow: 0 18px 42px rgba(228, 33, 39, 0.5);
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: #111827;
+  border-color: #d1d5db;
+}
+
+.btn-secondary:hover {
+  border-color: #9ca3af;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #111827;
+  border-color: #d1d5db;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.btn-cta {
+  padding-inline: 1.9rem;
+}
+
+.btn-arrow {
+  font-size: 1.1rem;
+  transform: translateX(0);
+  transition: transform 0.15s ease-out;
+}
+
+.btn-cta:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Bouton "En savoir plus sur nos services" en style pill */
+.btn-interactive {
+  border-radius: 999px;
+  padding: 0.7rem 2.4rem;
+  background: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.btn-interactive:hover {
+  background: #ffffff;
+  border-color: #111827;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+}
+
+
+/**************************************************************
+ * 4. HERO
+ *************************************************************/
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 72px; /* header */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+/* Image de fond (déjà définie en inline style dans .hero-bg) */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.05) contrast(1.05) brightness(0.75);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.75)),
+    radial-gradient(circle at top left, rgba(0, 0, 0, 0.45), transparent);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 72px);
+}
+
+.hero-text {
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.hero-kicker {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #e5e7eb;
+  margin-bottom: 0.9rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 4vw, 3.1rem);
+  line-height: 1.1;
+  margin-bottom: 0.6rem;
+}
+
+.hero h1 span {
+  color: var(--color-primary);
+}
+
+.hero-subtitle {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #e5e7eb;
+  max-width: 420px;
+  margin-bottom: 1.7rem;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+/* Petit indicateur de scroll */
+.hero-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 1.2rem;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.scroll-indicator {
+  width: 24px;
+  height: 40px;
+  border-radius: 999px;
+  border: 2px solid rgba(229, 231, 235, 0.85);
+  position: relative;
+}
+
+.scroll-indicator::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(229, 231, 235, 0.85);
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+  animation: scrollDot 1.4s infinite ease-in-out;
+}
+
+@keyframes scrollDot {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, 8px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+}
+
+/**************************************************************
+ * 5. SECTIONS GÉNÉRALES
+ *************************************************************/
+
+.section {
+  padding: var(--section-padding-y) 0;
+  background: var(--color-bg-section);
+}
+
+.section-light {
+  background: #ffffff;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-header p {
+  font-size: 0.96rem;
+  color: var(--color-text-muted);
+}
+
+/**************************************************************
+ * 6. CARTES (INDEX : NOS TECHNIQUES & POURQUOI NOUS CHOISIR)
+ *************************************************************/
+
+/* Grille Nos Techniques : 3 colonnes */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 340px));
+  gap: 1.8rem;
+  justify-content: center;   /* 🔥 centre TOUTE la grille dans la container */
+}
+
+
+/* Ligne 1 : 3 cartes (liens directs dans la grille) */
+.cards-grid > .card-link {
+  justify-self: center; /* centre chaque carte dans sa colonne */
+}
+
+.cards-grid .card {
+  width: 100%;
+  max-width: 340px;
+}
+
+/* Ligne 2 : conteneur centré contenant 2 cartes */
+.cards-row-bottom {
+  grid-column: 1 / 4;
+  display: flex;
+  justify-content: center;
+  gap: 1.8rem;
+
+  /* 🟢 Fix pour centrer le bouton en dessous */
+  width: 100%;
+  max-width: 100%;
+}
+
+
+.cards-row-bottom .card {
+  width: 100%;
+  max-width: 340px;
+}
+
+/* Cartes générales */
+.card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-strong);
+}
+
+/* Image en haut de chaque carte */
+.card-image {
+  position: relative;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Icone ronde dans le coin supérieur gauche */
+.card-icon {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+/* Contenu texte */
+.card-body {
+  padding: 1.2rem 1.4rem 1.5rem;
+}
+
+.card-body h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.card-body p {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* Cartes « Pourquoi nous choisir » */
+.feature-card {
+  padding: 1.6rem 1.6rem 1.7rem;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: #f3f4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.7rem;
+}
+
+/* CTA bas de section */
+.section-cta {
+  width: 100%;
+  margin-top: 2.4rem;
+  text-align: center;      /* centre le contenu dans la largeur */
+}
+
+.section-cta .btn {
+  display: inline-flex;    /* reste un joli bouton */
+  justify-content: center;
+  align-items: center;
+}
+
+/**************************************************************
+ * 7. PAGE SERVICES – LISTE DÉTAILLÉE
+ *************************************************************/
+
+.services-page {
+  padding: calc(var(--section-padding-y) + 4rem) 1.5rem 4rem;
+  background: var(--color-bg-page);
+}
+
+.services-hero {
+  max-width: 760px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.services-hero h1 {
+  font-size: clamp(2.1rem, 3vw, 2.6rem);
+  margin-bottom: 0.4rem;
+}
+
+.services-hero p {
+  font-size: 0.98rem;
+  color: var(--color-text-muted);
+}
+
+.services-list {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+/* carte service détaillée */
+.service-card {
+  display: flex;
+  align-items: stretch;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  overflow: hidden;
+
+  /* base animation */
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+
+/* alterner image gauche / droite */
+.service-card:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.service-card-image {
+  flex: 1.1;
+  min-width: 0;
+}
+
+.service-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-card-content {
+  flex: 1;
+  padding: 2rem 2.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.service-card-content h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-intro {
+  font-size: 0.96rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.service-card-content h3 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.service-card-content ul {
+  list-style: disc;
+  padding-left: 1.1rem;
+  font-size: 0.94rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* classes ajoutées par JS pour l’animation */
+.service-card.slide-left {
+  transform: translateX(-40px);
+}
+
+.service-card.slide-right {
+  transform: translateX(40px);
+}
+
+.service-card.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/**************************************************************
+ * 8. RESPONSIVE
+ *************************************************************/
+
+/* 🌟 TABLETTES – max 900px */
+@media (max-width: 900px) {
+  .hero-content {
+    align-items: flex-start;
+    padding-top: 2.5rem;
+  }
+
+  .hero-text {
+    text-align: left;
+  }
+
+  /* Grille Nos Techniques passe en 2 colonnes */
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+
+  /* Ligne du bas toujours centrée */
+.cards-row-bottom {
+  grid-column: 1 / 4;
+  display: flex;
+  justify-content: center;
+  gap: 1.8rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+
+  .cards-row-bottom .card-link {
+    flex: 1 1 min(260px, 100%);
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Services page (images à gauche puis au-dessus) */
+  .service-card {
+    flex-direction: column !important;
+  }
+
+  .service-card-content {
+    padding: 1.6rem 1.5rem 2rem;
+  }
+
+  .service-card.slide-left,
+  .service-card.slide-right {
+    transform: translateY(25px);
+  }
+
+  .service-card.in-view {
+    transform: translateY(0);
+  }
+}
+
+/* 🌟 MOBILES – max 640px */
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 72px;
+  }
+
+  .hero-content {
+    min-height: auto;
+    padding: 3.5rem 0 4rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Nos Techniques : une seule colonne */
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  /* La ligne du bas se comporte comme la première */
+  .cards-row-bottom {
+    grid-column: 1 / 2;
+    flex-direction: column;
+    align-items: center; /* centre le contenu horizontalement */
+  }
+
+  /* 🔥 Toutes les cartes ont la même largeur */
+  .cards-grid .card,
+  .cards-row-bottom .card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .section {
+    padding: 3.5rem 0;
+  }
+}
+
+
+/**************************************************************
+ * 9. FOOTER (STYLE TYPE "BAND DARK" EN BAS DE PAGE)
+ *************************************************************/
+
+.site-footer {
+  background: #050816;
+  color: #e5e7eb;
+  padding: 2.5rem 0 2.8rem;
+  margin-top: 2.5rem;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem 3rem;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+/* Bloc texte de gauche */
+.footer-brand {
+  max-width: 380px;
+}
+
+.footer-brand h4 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.footer-brand p {
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+/* Colonnes de droite */
+.footer-columns {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.footer-col-title {
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  font-size: 0.92rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.footer-links a,
+.footer-links span {
+  color: #d1d5db;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+}
+
+/* Footer responsive */
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+  }
+
+  .footer-columns {
+    gap: 1.8rem;
+  }
+}

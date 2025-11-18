@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title if title else "HRT Rénove" }}</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="{{ url_for('index') }}" class="site-logo">
+        <img src="{{ url_for('static', filename='img/logo_hrt_renove.png') }}" alt="HRT Rénove">
+      </a>
+
+      <!-- Bouton burger mobile -->
+      <button
+        id="menu-toggle"
+        aria-label="Ouvrir le menu de navigation"
+        aria-expanded="false"
+        aria-controls="main-nav"
+        type="button"
+      >
+        <span></span>
+      </button>
+
+      <!-- Navigation principale -->
+      <nav id="main-nav">
+        <a href="{{ url_for('index') }}" class="nav-link">Accueil</a>
+        <a href="{{ url_for('services') }}" class="nav-link">Services</a>
+        <!-- Si tu veux plus tard une vraie page contact, remplace #contact par url_for('contact') -->
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Backdrop pour le menu mobile -->
+  <div id="nav-backdrop"></div>
+  
+  <!-- CONTENU DES PAGES -->
+  {% block content %}{% endblock %}
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h4>HRT Rénove</h4>
+        <p>
+          Spécialiste du traitement de surface&nbsp;: aérogommage, vaporblasting,
+          cerakote, thermolaquage et sablage/grenaillage pour vos projets
+          professionnels et privés.
+        </p>
+      </div>
+
+      <div class="footer-columns">
+        <div>
+          <div class="footer-col-title">Nos Services</div>
+          <div class="footer-links">
+            <a href="{{ url_for('services') }}#aerogommage">Aérogommage</a>
+            <a href="{{ url_for('services') }}#vaporblasting">Vaporblasting</a>
+            <a href="{{ url_for('services') }}#cerakote">Cerakote</a>
+            <a href="{{ url_for('services') }}#thermolaquage">Thermolaquage</a>
+            <a href="{{ url_for('services') }}#sablage-grenaillage">Sablage &amp; Grenaillage</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-links">
+            <span>📞 +32 (0)4 XX XX XX XX</span>
+            <span>✉️ contact@hrt-renove.be</span>
+            <span>📍 Région de Liège, Belgique</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

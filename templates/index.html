@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" style="background-image: url('{{ url_for('static', filename='img/hero-atelier.jpg') }}');"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-content">
+    <div class="hero-text">
+      <p class="hero-kicker">Traitement de surface professionnel</p>
+      <h1>
+        Excellence en<br />
+        <span>Finitions Métalliques</span>
+      </h1>
+      <p class="hero-subtitle">
+        HRT Rénove est spécialisé dans les traitements de surface haute
+        performance : aérogommage, vaporblasting, cerakote, thermolaquage
+        et sablage/grenaillage.
+      </p>
+
+      <div class="hero-buttons">
+        <!-- Bouton vers la page Services -->
+        <a href="{{ url_for('services') }}" class="btn btn-primary btn-cta">
+          <span>Découvrir nos services</span>
+          <span class="btn-arrow">→</span>
+        </a>
+        <!-- Bouton contact inchangé (ancre) -->
+        <a href="#contact" class="btn btn-secondary">
+          Nous contacter
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-indicator"></span>
+  </div>
+</section>
+
+<!-- NOS TECHNIQUES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <h2>Nos Techniques</h2>
+      <p>Des solutions professionnelles adaptées à tous vos besoins de traitement de surface.</p>
+    </div>
+    <div class="cards-grid">
+
+  <!-- Ligne du haut : 3 cartes dans la grille -->
+  <!-- Aerogommage -->
+  <a href="{{ url_for('services') }}#aerogommage" class="card-link">
+    <article class="card">
+      <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-aerogommage.jpg') }}');">
+        <div class="card-icon">
+          <span>✦</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>Aérogommage</h3>
+        <p>Décapage doux et précis pour meubles, pièces mécaniques et supports délicats.</p>
+      </div>
+    </article>
+  </a>
+
+  <!-- Vaporblasting -->
+  <a href="{{ url_for('services') }}#vaporblasting" class="card-link">
+    <article class="card">
+      <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-vaporblasting.jpg') }}');">
+        <div class="card-icon">
+          <span>💧</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>Vaporblasting</h3>
+        <p>Finition satinée exceptionnelle par sablage humide, idéale pour pièces moto et auto.</p>
+      </div>
+    </article>
+  </a>
+
+  <!-- Cerakote -->
+  <a href="{{ url_for('services') }}#cerakote" class="card-link">
+    <article class="card">
+      <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-cerakote.jpg') }}');">
+        <div class="card-icon">
+          <span>🛡</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>Cerakote</h3>
+        <p>Revêtement céramique ultra résistant pour pièces soumises aux contraintes extrêmes.</p>
+      </div>
+    </article>
+  </a>
+
+  <!-- Ligne du bas : 2 cartes dans un conteneur centré -->
+  <div class="cards-row-bottom">
+    <!-- Thermolaquage -->
+    <a href="{{ url_for('services') }}#thermolaquage" class="card-link">
+      <article class="card">
+        <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-thermolaquage.jpg') }}');">
+          <div class="card-icon">
+            <span>🔥</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>Thermolaquage</h3>
+          <p>Peinture poudre durable et esthétique pour structures métalliques et mobiliers.</p>
+        </div>
+      </article>
+    </a>
+
+    <!-- Sablage & grenaillage -->
+    <a href="{{ url_for('services') }}#sablage-grenaillage" class="card-link">
+      <article class="card">
+        <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-sablage.jpg') }}');">
+          <div class="card-icon">
+            <span>⚙</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>Sablage &amp; Grenaillage</h3>
+          <p>Préparation de surface professionnelle pour grandes pièces et châssis métalliques.</p>
+        </div>
+      </article>
+    </a>
+  </div>
+  <div class="section-cta">
+    <a href="{{ url_for('services') }}" class="btn btn-outline btn-interactive">
+      En savoir plus sur nos services
+    </a>
+  </div>
+  
+</div>
+</section>
+
+<!-- POURQUOI NOUS CHOISIR -->
+<section class="section section-light">
+  <div class="container">
+    <div class="section-header">
+      <h2>Pourquoi Nous Choisir</h2>
+      <p>L’expertise HRT Rénove au service de vos projets.</p>
+    </div>
+
+    <div class="cards-grid cards-grid-3">
+      <article class="card feature-card">
+        <div class="feature-icon">
+          <span>🏅</span>
+        </div>
+        <h3>Expertise Technique</h3>
+        <p>Un savoir-faire pointu dans le traitement de surface et la finition de pièces métalliques.</p>
+      </article>
+
+      <article class="card feature-card">
+        <div class="feature-icon">
+          <span>✅</span>
+        </div>
+        <h3>Qualité &amp; Durabilité</h3>
+        <p>Des procédés maîtrisés pour des résultats réguliers, durables et esthétiques.</p>
+      </article>
+
+      <article class="card feature-card">
+        <div class="feature-icon">
+          <span>⚡</span>
+        </div>
+        <h3>Flexibilité &amp; Réactivité</h3>
+        <p>Devis rapides, délais maîtrisés et solutions adaptées à vos contraintes.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
