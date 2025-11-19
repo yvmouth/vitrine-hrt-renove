@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Contact – HRT Rénove{% endblock %}
+
+{% block content %}
+<main class="contact-page section-padding">
+
+  <!-- HEADER / INTRO CENTRÉ -->
+  <section class="contact-header container">
+    <h1 class="section-title">Parlons de votre projet</h1>
+    <p class="section-subtitle">
+      Un meuble à rénover, une pièce à décaper, une nouvelle finition à envisager ?
+      HRT Rénove vous accompagne de l’idée au résultat final.
+    </p>
+
+    <div class="contact-badges">
+      <div class="contact-badge">
+        <span class="badge-dot"></span>
+        <div>
+          <p class="badge-title">Zone d’intervention</p>
+          <p class="badge-text">Liège & Province, Belgique</p>
+        </div>
+      </div>
+      <div class="contact-badge">
+        <span class="badge-dot"></span>
+        <div>
+          <p class="badge-title">Réponse rapide</p>
+          <p class="badge-text">Sous 24–48h en semaine</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRILLE DES CARTES -->
+  <section class="contact-layout container">
+
+    <!-- CARTE 1 : COORDONNÉES PRINCIPALES (PLEINE LARGEUR) -->
+    <div class="contact-card contact-card--main">
+      <h2 class="contact-title">Coordonnées principales</h2>
+      <p class="contact-card__tip">
+        Privilégiez l’email ou le téléphone pour une demande de devis détaillée.
+      </p>
+
+      <div class="contact-methods">
+        <a class="contact-method" href="mailto:hrt.renove@gmail.com">
+          <span class="contact-method__icon">📧</span>
+          <div>
+            <p class="contact-method__label">Email</p>
+            <p class="contact-method__value">hrt.renove@gmail.com</p>
+          </div>
+        </a>
+
+        <a class="contact-method" href="tel:+32400000000">
+          <span class="contact-method__icon">📞</span>
+          <div>
+            <p class="contact-method__label">Téléphone</p>
+            <p class="contact-method__value">+32 400 00 000</p>
+          </div>
+        </a>
+
+        <div class="contact-method contact-method--static">
+          <span class="contact-method__icon">📍</span>
+          <div>
+            <p class="contact-method__label">Localisation</p>
+            <p class="contact-method__value">Liège & Province (Belgique)</p>
+          </div>
+        </div>
+      </div>
+
+      <a href="mailto:hrt.renove@gmail.com" class="btn btn-primary contact-cta">
+        Demander un devis
+      </a>
+    </div>
+
+    <!-- CARTE 2 : RÉSEAUX SOCIAUX -->
+    <div class="contact-card">
+      <h2 class="contact-title">Réseaux sociaux</h2>
+      <p class="contact-card__tip">
+        Suivez les réalisations, avant/après et coulisses des projets.
+      </p>
+
+      <div class="contact-methods contact-methods--social">
+        <a class="contact-method" href="https://instagram.com/hrt_renove" target="_blank">
+          <span class="contact-method__icon">📸</span>
+          <div>
+            <p class="contact-method__label">Instagram</p>
+            <p class="contact-method__value">@hrt_renove</p>
+          </div>
+        </a>
+
+        <a class="contact-method" href="https://facebook.com/hrt.renove" target="_blank">
+          <span class="contact-method__icon">📘</span>
+          <div>
+            <p class="contact-method__label">Facebook</p>
+            <p class="contact-method__value">HRT Rénove</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CARTE 3 : INFOS PRATIQUES -->
+    <div class="contact-card contact-card--light">
+      <h2 class="contact-title">Infos pratiques</h2>
+      <ul class="contact-infos-list">
+        <li>
+          <span class="contact-infos-label">Types de projets</span>
+          <span class="contact-infos-value">
+            Meubles, pièces mécaniques, carrosserie légère, décoration…
+          </span>
+        </li>
+        <li>
+          <span class="contact-infos-label">Horaires</span>
+          <span class="contact-infos-value">
+            Sur rendez-vous, en semaine & parfois le samedi.
+          </span>
+        </li>
+        <li>
+          <span class="contact-infos-label">Devis</span>
+          <span class="contact-infos-value">
+            En ligne (photos) ou sur place selon le projet.
+          </span>
+        </li>
+      </ul>
+    </div>
+
+  </section>
+
+</main>
+{% endblock %}
