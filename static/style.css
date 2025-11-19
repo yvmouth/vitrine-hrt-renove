@@ -432,7 +432,7 @@ ul {
 }
 
 .hero-text {
-  max-width: 480px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
   text-align: left;
@@ -460,7 +460,7 @@ ul {
   font-size: 0.98rem;
   line-height: 1.6;
   color: #e5e7eb;
-  max-width: 420px;
+  max-width: 640px;
   margin-bottom: 1.7rem;
 }
 
@@ -541,6 +541,35 @@ ul {
 .section-header p {
   font-size: 0.96rem;
   color: var(--color-text-muted);
+}
+
+/*----- INSTRAGRAM -----*/
+
+.section-instagram {
+  background: #ffffff;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.section-instagram .section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 2rem;
+}
+
+.instagram-widget-wrapper {
+  background: #ffffff;
+  backdrop-filter: blur(6px);
+  padding: 30px;
+  border-radius: 18px;
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.instagram-cta {
+  text-align: center;
+  margin-top: 2rem;
 }
 
 /**************************************************************
