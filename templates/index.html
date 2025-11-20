@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block body_class %}is-home{% endblock %}
+
 {% block content %}
 
 <!-- HERO -->
@@ -9,24 +11,32 @@
 
   <div class="container hero-content">
     <div class="hero-text">
+
+      <!-- 🔥 AJOUT DU LOGO ICI -->
+      <div class="hero-logo">
+        <img src="{{ url_for('static', filename='img/logo_hrt_renove.png') }}"
+             alt="Logo HRT Rénove" />
+      </div>
+
       <p class="hero-kicker">Traitement de surface professionnel</p>
+
       <h1>
         Excellence en<br />
         <span>Finitions Métalliques</span>
       </h1>
+
       <p class="hero-subtitle">
         HRT Rénove est spécialisé dans les traitements de surface haute
-        performance : aérogommage, vaporblasting, cerakote, thermolaquage
-        et sablage/grenaillage.
+        performance : aérogommage, vaporblasting, cerakote,
+        thermolaquage et sablage/grenaillage.
       </p>
 
       <div class="hero-buttons">
-        <!-- Bouton vers la page Services -->
         <a href="{{ url_for('services') }}" class="btn btn-primary btn-cta">
           <span>Découvrir nos services</span>
           <span class="btn-arrow">→</span>
         </a>
-        <!-- Bouton contact inchangé (ancre) -->
+
         <a href="{{ url_for('contact') }}" class="btn btn-secondary">
           Nous contacter
         </a>
@@ -34,9 +44,8 @@
 
     </div>
   </div>
-
   <div class="hero-scroll">
-    <span class="scroll-indicator"></span>
+    <div class="scroll-indicator-circle"></div>
   </div>
 </section>
 

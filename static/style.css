@@ -39,8 +39,8 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Segoe UI", sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "SF Pro Text", "Segoe UI", sans-serif;
   background: var(--color-bg-page);
   color: var(--color-text-main);
   -webkit-font-smoothing: antialiased;
@@ -80,9 +80,10 @@ ul {
   inset: 0 0 auto 0;
   height: 80px;
   z-index: 50;
-  background: #ffffff;
+  background: var(--color-bg-header);
   border-bottom: 1px solid rgba(229, 231, 235, 0.9);
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 /* Fond assombri derrière le menu mobile */
@@ -108,7 +109,7 @@ ul {
   justify-content: space-between;
 }
 
-/* Logo aligné à gauche, mais visuellement centré dans le header */
+/* Logo */
 .site-logo {
   display: inline-flex;
   align-items: center;
@@ -218,8 +219,30 @@ ul {
   opacity: 0;
 }
 
+/* Apparition progressive du header sur la page d'accueil (desktop) */
+.is-home .site-header {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.is-home .site-header.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Sur mobile/tablette : header visible directement */
+@media (max-width: 1023px) {
+  .is-home .site-header {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 /**************************************************************
- * 2. MOBILE NAV
+ * 2. NAVIGATION MOBILE
  *************************************************************/
 
 /* petite animation des items du menu */
@@ -293,7 +316,7 @@ ul {
 }
 
 /**************************************************************
- * 3. BOUTONS GÉNÉRIQUES
+ * 3. BOUTONS GÉNÉRIQUES (avec hovers interactifs)
  *************************************************************/
 
 .btn {
@@ -309,13 +332,15 @@ ul {
   cursor: pointer;
   white-space: nowrap;
   transition:
-    background 0.2s ease-out,
-    color 0.2s ease-out,
-    border-color 0.2s ease-out,
-    box-shadow 0.2s ease-out,
-    transform 0.15s ease-out;
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    filter 0.25s ease;
 }
 
+/* Bouton principal (rouge) */
 .btn-primary {
   background: var(--color-primary);
   color: #ffffff;
@@ -323,22 +348,36 @@ ul {
 }
 
 .btn-primary:hover {
-  background: #cf1c21;
-  transform: translateY(-1px);
-  box-shadow: 0 18px 42px rgba(228, 33, 39, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(228, 33, 39, 0.28);
+  filter: brightness(1.03);
 }
 
+/* Flèche dans le bouton CTA : effet slide sur hover */
+.btn-primary .btn-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Bouton secondaire (utilisé sur fond sombre, ex: hero) */
 .btn-secondary {
-  background: #ffffff;
-  color: #111827;
-  border-color: #d1d5db;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
 }
 
 .btn-secondary:hover {
-  border-color: #9ca3af;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+  transform: translateY(-3px);
+  background-color: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.55);
+  filter: none;
 }
 
+/* Outline générique */
 .btn-outline {
   background: transparent;
   color: #111827;
@@ -363,6 +402,7 @@ ul {
   background: #ffffff;
 }
 
+/* CTA principal */
 .btn-cta {
   padding-inline: 1.9rem;
 }
@@ -370,14 +410,9 @@ ul {
 .btn-arrow {
   font-size: 1.1rem;
   transform: translateX(0);
-  transition: transform 0.15s ease-out;
 }
 
-.btn-cta:hover .btn-arrow {
-  transform: translateX(4px);
-}
-
-/* Bouton "En savoir plus sur nos services" en style pill */
+/* Bouton "En savoir plus sur nos services" */
 .btn-interactive {
   border-radius: 999px;
   padding: 0.7rem 2.4rem;
@@ -390,6 +425,13 @@ ul {
   background: #ffffff;
   border-color: #111827;
   box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+}
+
+/* Effet "press" au clic */
+.btn-primary:active,
+.btn-secondary:active {
+  transform: translateY(-1px) scale(0.98);
+  transition-duration: 0.1s;
 }
 
 /**************************************************************
@@ -406,7 +448,7 @@ ul {
   color: #ffffff;
 }
 
-/* Image de fond (déjà définie en inline style dans .hero-bg) */
+/* Image de fond (définie en inline style dans .hero-bg) */
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -436,6 +478,32 @@ ul {
   margin-left: auto;
   margin-right: auto;
   text-align: left;
+}
+
+/* Logo dans le hero */
+.hero-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+
+.hero-logo img {
+  height: 110px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.18));
+  animation: fadeInDown 0.6s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-kicker {
@@ -470,53 +538,94 @@ ul {
   gap: 0.9rem;
 }
 
-/* Petit indicateur de scroll */
+/* Animation d’entrée (texte + boutons) */
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* État initial sur la home */
+.is-home .hero-kicker,
+.is-home .hero-text h1,
+.is-home .hero-text h1 span,
+.is-home .hero-subtitle,
+.is-home .hero-buttons {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* Kicker */
+.is-home .hero-kicker {
+  animation: heroFadeUp 0.6s ease-out forwards;
+  animation-delay: 0.15s;
+}
+
+/* Titre */
+.is-home .hero-text h1 {
+  animation: heroFadeUp 0.6s ease-out forwards;
+  animation-delay: 0.28s;
+}
+
+/* Partie accentuée du titre */
+.is-home .hero-text h1 span {
+  animation: heroFadeUp 0.6s ease-out forwards;
+  animation-delay: 0.34s;
+}
+
+/* Sous-titre */
+.is-home .hero-subtitle {
+  animation: heroFadeUp 0.6s ease-out forwards;
+  animation-delay: 0.45s;
+}
+
+/* Boutons */
+.is-home .hero-buttons {
+  animation: heroFadeUp 0.6s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+/* Indicateur de scroll (cercle pulsant) */
+
 .hero-scroll {
   position: absolute;
   left: 50%;
-  bottom: 1.2rem;
+  bottom: 1.6rem;
   transform: translateX(-50%);
   z-index: 1;
 }
 
-.scroll-indicator {
-  width: 24px;
-  height: 40px;
-  border-radius: 999px;
-  border: 2px solid rgba(229, 231, 235, 0.85);
-  position: relative;
+.scroll-indicator-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  animation: pulseScroll 1.8s ease-out infinite;
 }
 
-.scroll-indicator::after {
-  content: "";
-  position: absolute;
-  width: 4px;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(229, 231, 235, 0.85);
-  left: 50%;
-  top: 8px;
-  transform: translateX(-50%);
-  animation: scrollDot 1.4s infinite ease-in-out;
-}
-
-@keyframes scrollDot {
+@keyframes pulseScroll {
   0% {
-    opacity: 0;
-    transform: translate(-50%, 0);
+    transform: scale(0.9);
+    opacity: 0.6;
   }
   50% {
+    transform: scale(1.15);
     opacity: 1;
-    transform: translate(-50%, 8px);
   }
   100% {
-    opacity: 0;
-    transform: translate(-50%, 16px);
+    transform: scale(0.9);
+    opacity: 0.6;
   }
 }
 
 /**************************************************************
- * 5. SECTIONS GÉNÉRALES
+ * 5. SECTIONS GÉNÉRALES + INSTAGRAM
  *************************************************************/
 
 .section {
@@ -543,8 +652,7 @@ ul {
   color: var(--color-text-muted);
 }
 
-/*----- INSTRAGRAM -----*/
-
+/* Instagram */
 .section-instagram {
   background: #ffffff;
   padding-top: 4rem;
@@ -564,7 +672,7 @@ ul {
   border-radius: 18px;
   max-width: 1000px;
   margin: 0 auto;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .instagram-cta {
@@ -573,7 +681,7 @@ ul {
 }
 
 /**************************************************************
- * 6. CARTES (INDEX : NOS TECHNIQUES & POURQUOI NOUS CHOISIR)
+ * 6. CARTES (NOS TECHNIQUES & POURQUOI NOUS CHOISIR)
  *************************************************************/
 
 /* Grille Nos Techniques : 3 colonnes */
@@ -586,7 +694,7 @@ ul {
 
 /* Ligne 1 : 3 cartes (liens directs dans la grille) */
 .cards-grid > .card-link {
-  justify-self: center; /* centre chaque carte dans sa colonne */
+  justify-self: center;
 }
 
 .cards-grid .card {
@@ -600,8 +708,6 @@ ul {
   display: flex;
   justify-content: center;
   gap: 1.8rem;
-
-  /* Fix pour centrer le bouton en dessous */
   width: 100%;
   max-width: 100%;
 }
@@ -637,7 +743,7 @@ ul {
   background-position: center;
 }
 
-/* Icone ronde dans le coin supérieur gauche */
+/* Icone ronde */
 .card-icon {
   position: absolute;
   top: 0.9rem;
@@ -816,7 +922,7 @@ ul {
 }
 
 /**************************************************************
- * 8. PAGE A PROPOS
+ * 8. PAGE À PROPOS
  *************************************************************/
 
 /* padding vertical standard pour les sections de cette page */
@@ -836,17 +942,16 @@ ul {
   background: #f2f4f8;
 }
 
-/* Séparateur très subtil entre les sections de la page À propos */
+/* Séparateur subtil entre les sections */
 .about-page section + section {
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* Pas de bordure pour les sections alternées gris clair */
 .about-page .section-alt {
   border-top: none;
 }
 
-/* (Optionnel) Carte pleine largeur si tu veux encadrer une section */
+/* Carte pleine largeur éventuelle */
 .section-box {
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.04);
@@ -856,7 +961,6 @@ ul {
   margin-bottom: 4rem;
 }
 
-/* Titres & sous-titres génériques de la page A propos (fond clair) */
 .about-page .section-title {
   font-size: 2.4rem;
   font-weight: 700;
@@ -874,16 +978,7 @@ ul {
   text-align: center;
 }
 
-/* Hero A propos : titre + sous-titre */
-.about-hero .section-title {
-  color: #111827;   /* titre sombre sur fond clair */
-}
-
-.about-hero .section-subtitle {
-  color: #6b7280;   /* gris texte standard */
-}
-
-/* HERO -----------------------------------------------------*/
+/* HERO A PROPOS */
 
 .about-hero__grid {
   display: grid;
@@ -896,7 +991,7 @@ ul {
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: 0.8rem;
-  color: var(--color-primary); /* rouge du site */
+  color: var(--color-primary);
   margin-bottom: 0.6rem;
 }
 
@@ -912,7 +1007,6 @@ ul {
   justify-content: center;
 }
 
-/* Image dans le hero (remplace l’ancien bloc noir) */
 .about-hero__image-placeholder {
   width: 100%;
   max-width: 360px;
@@ -922,10 +1016,8 @@ ul {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border: none;
 }
 
-/* Carré rouge accent en bas à droite de l’image */
 .about-hero__accent-square {
   position: absolute;
   bottom: -32px;
@@ -936,7 +1028,7 @@ ul {
   background: var(--color-primary);
 }
 
-/* DESCRIPTION ----------------------------------------------*/
+/* DESCRIPTION */
 
 .about-card {
   max-width: 800px;
@@ -961,7 +1053,7 @@ ul {
   margin-top: 1rem;
 }
 
-/* TIMELINE -------------------------------------------------*/
+/* TIMELINE */
 
 .about-timeline {
   position: relative;
@@ -1009,7 +1101,7 @@ ul {
 
 .timeline-year {
   font-weight: 700;
-  color: var(--color-primary); /* rouge du site */
+  color: var(--color-primary);
   margin-bottom: 0.5rem;
 }
 
@@ -1029,7 +1121,7 @@ ul {
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: #f97316;  /* tu peux aussi passer ça en var(--color-primary) si tu veux tout rouge */
+  background: #f97316;
   border: 3px solid #111111;
   transform: translateY(-50%);
 }
@@ -1042,7 +1134,7 @@ ul {
   left: -5px;
 }
 
-/* PROJETS PHARES -------------------------------------------*/
+/* PROJETS PHARES */
 
 .about-projects .section-title {
   color: var(--color-text-main);
@@ -1088,7 +1180,7 @@ ul {
 
 .badge-accent {
   right: 1.2rem;
-  background: var(--color-primary); /* rouge */
+  background: var(--color-primary);
   color: #ffffff;
 }
 
@@ -1100,7 +1192,7 @@ ul {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: #f97316; /* laisse en orange si tu veux différencier le type de projet */
+  color: #f97316;
   margin-bottom: 0.4rem;
 }
 
@@ -1113,7 +1205,7 @@ ul {
   color: #d4d4d4;
 }
 
-/* OBJECTIFS FUTURS -----------------------------------------*/
+/* OBJECTIFS FUTURS */
 
 .about-future {
   border-top: 1px solid #d1d5db;
@@ -1161,24 +1253,18 @@ ul {
   text-align: center;
 }
 
-/**************************************************************
- * ANIMATIONS SCROLL – A PROPOS
- * (fade + léger mouvement, différentes des services)
- **************************************************************/
+/* ANIMATIONS SCROLL – A PROPOS */
 
-/* état initial : caché / légèrement décalé */
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(24px) scale(0.98);
   will-change: opacity, transform;
 }
 
-/* quand l’élément devient visible */
 .reveal-on-scroll.is-visible {
   animation: fadeUpSoft 0.7s ease-out forwards;
 }
 
-/* Variante plus latérale (pour la timeline si tu veux) */
 .reveal-on-scroll-left {
   opacity: 0;
   transform: translateX(-24px);
@@ -1197,13 +1283,12 @@ ul {
   animation: fadeInRightSoft 0.7s ease-out forwards;
 }
 
-/* Petites delays pour l’effet “stagger” */
+/* Delays pour stagger */
 .reveal-delay-1 { animation-delay: 0.05s; }
 .reveal-delay-2 { animation-delay: 0.12s; }
 .reveal-delay-3 { animation-delay: 0.2s; }
 .reveal-delay-4 { animation-delay: 0.3s; }
 
-/* Keyframes très soft */
 @keyframes fadeUpSoft {
   from {
     opacity: 0;
@@ -1238,137 +1323,8 @@ ul {
 }
 
 /**************************************************************
- * 9. RESPONSIVE GLOBAL + A PROPOS
+ * 9. CONTACT PAGE
  *************************************************************/
-
-/* TABLETTES – max 900px */
-@media (max-width: 900px) {
-  .hero-content {
-    align-items: flex-start;
-    padding-top: 2.5rem;
-  }
-
-  .hero-text {
-    text-align: left;
-  }
-
-  /* Grille Nos Techniques passe en 2 colonnes */
-  .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
-  }
-
-  .cards-row-bottom {
-    grid-column: 1 / 4;
-    display: flex;
-    justify-content: center;
-    gap: 1.8rem;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .cards-row-bottom .card-link {
-    flex: 1 1 min(260px, 100%);
-    display: flex;
-    justify-content: center;
-  }
-
-  /* Services page (images à gauche puis au-dessus) */
-  .service-card {
-    flex-direction: column !important;
-  }
-
-  .service-card-content {
-    padding: 1.6rem 1.5rem 2rem;
-  }
-
-  .service-card.slide-left,
-  .service-card.slide-right {
-    transform: translateY(25px);
-  }
-
-  .service-card.in-view {
-    transform: translateY(0);
-  }
-
-  /* A PROPOS - hero & timeline */
-  .about-hero__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .timeline-line {
-    left: 10px;
-  }
-
-  .timeline-item,
-  .timeline-item.right,
-  .timeline-item.left {
-    width: 100%;
-    margin-left: 0;
-    padding-left: 2.3rem;
-    padding-right: 0;
-    text-align: left;
-  }
-
-  .timeline-item.left::before,
-  .timeline-item.right::before {
-    left: 5px;
-    right: auto;
-  }
-
-  .projects-grid,
-  .future-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about-hero__accent-square {
-    display: none;
-  }
-}
-
-/* MOBILES – max 640px */
-@media (max-width: 640px) {
-  .hero {
-    padding-top: 72px;
-  }
-
-  .hero-content {
-    min-height: auto;
-    padding: 3.5rem 0 4rem;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  /* Nos Techniques : une seule colonne */
-  .cards-grid {
-    grid-template-columns: 1fr;
-    gap: 1.4rem;
-  }
-
-  /* La ligne du bas se comporte comme la première */
-  .cards-row-bottom {
-    grid-column: 1 / 2;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .cards-grid .card,
-  .cards-row-bottom .card {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .section {
-    padding: 3.5rem 0;
-  }
-}
-
-/************************************
- * CONTACT PAGE – version harmonisée
- ***********************************/
 
 .contact-page {
   background: var(--color-bg-page);
@@ -1449,7 +1405,7 @@ ul {
 .contact-card--main {
   position: relative;
   overflow: hidden;
-  grid-column: 1 / -1; /* pleine largeur */
+  grid-column: 1 / -1;
   margin-bottom: 0.3rem;
 }
 
@@ -1568,7 +1524,7 @@ ul {
   display: block;
 }
 
-/* RESPONSIVE */
+/* Responsive contact */
 
 @media (max-width: 960px) {
   .contact-layout {
@@ -1579,6 +1535,7 @@ ul {
     grid-column: 1 / 2;
   }
 }
+
 /**************************************************************
  * 10. FOOTER
  *************************************************************/
@@ -1591,7 +1548,7 @@ ul {
   font-size: 0.9rem;
 }
 
-/* Grille principale (correspond à .container.footer-main) */
+/* Grille principale */
 .footer-main {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr) minmax(0, 1.5fr);
@@ -1599,7 +1556,7 @@ ul {
   align-items: flex-start;
 }
 
-/* Colonne 1 : présentation */
+/* Colonne 1 */
 .footer-col--brand {
   max-width: 420px;
 }
@@ -1625,11 +1582,8 @@ ul {
   color: #f9fafb;
 }
 
-/* Liste des services (colonne 2) */
+/* Liste des services */
 .footer-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -1638,7 +1592,6 @@ ul {
 .footer-list a {
   color: #cbd5e1;
   font-size: 0.92rem;
-  text-decoration: none;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
@@ -1647,7 +1600,7 @@ ul {
   transform: translateX(2px);
 }
 
-/* Colonne 3 : bloc contact */
+/* Colonne contact */
 .footer-contact {
   display: flex;
   flex-direction: column;
@@ -1659,7 +1612,6 @@ ul {
   align-items: center;
   gap: 0.55rem;
   color: #cbd5e1;
-  text-decoration: none;
   font-size: 0.92rem;
   transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -1668,7 +1620,7 @@ ul {
   cursor: default;
 }
 
-/* Icône du contact : on FORCE la taille ici */
+/* Icône */
 .footer-contact-icon {
   width: 20px;
   height: 20px;
@@ -1682,7 +1634,7 @@ ul {
   width: 100%;
   height: 100%;
   display: block;
-  color: #ffffff; /* bien lisible sur fond sombre */
+  color: #ffffff;
 }
 
 .footer-contact-item:hover:not(.footer-contact-item--static) {
@@ -1706,22 +1658,21 @@ ul {
   color: #94a3b8;
 }
 
-/* Centrer la zone du bas du footer */
+/* Centrage du texte bas */
 .footer-bottom-center {
   text-align: center;
   width: 100%;
 }
 
-/* Texte plus fin et propre */
 .footer-bottom-center span {
   display: block;
   width: 100%;
   font-size: 0.85rem;
   line-height: 1.4;
-  color: #94a3b8; /* gris doux */
+  color: #94a3b8;
 }
 
-/* Responsive */
+/* Footer responsive */
 @media (max-width: 900px) {
   .footer-main {
     grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.5fr);
@@ -1742,3 +1693,155 @@ ul {
     align-items: flex-start;
   }
 }
+
+/**************************************************************
+ * 11. RESPONSIVE GLOBAL
+ *************************************************************/
+
+/* TABLETTES – max 900px */
+@media (max-width: 900px) {
+  .hero-content {
+    align-items: flex-start;
+    padding-top: 2.5rem;
+  }
+
+  .hero-text {
+    text-align: left;
+  }
+
+  /* Grille Nos Techniques passe en 2 colonnes */
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+
+  .cards-row-bottom {
+    grid-column: 1 / 4;
+    display: flex;
+    justify-content: center;
+    gap: 1.8rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cards-row-bottom .card-link {
+    flex: 1 1 min(260px, 100%);
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Services page */
+  .service-card {
+    flex-direction: column !important;
+  }
+
+  .service-card-content {
+    padding: 1.6rem 1.5rem 2rem;
+  }
+
+  .service-card.slide-left,
+  .service-card.slide-right {
+    transform: translateY(25px);
+  }
+
+  .service-card.in-view {
+    transform: translateY(0);
+  }
+
+  /* A PROPOS */
+  .about-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-line {
+    left: 10px;
+  }
+
+  .timeline-item,
+  .timeline-item.right,
+  .timeline-item.left {
+    width: 100%;
+    margin-left: 0;
+    padding-left: 2.3rem;
+    padding-right: 0;
+    text-align: left;
+  }
+
+  .timeline-item.left::before,
+  .timeline-item.right::before {
+    left: 5px;
+    right: auto;
+  }
+
+  .projects-grid,
+  .future-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero__accent-square {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 72px;
+  }
+
+  .hero-content {
+    min-height: auto;
+    padding: 3.2rem 0 3.6rem;
+    justify-content: center;
+  }
+
+  /* On centre vraiment le bloc texte */
+  .hero-text {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Logo un peu plus petit sur mobile */
+  .hero-logo img {
+    height: 80px;
+  }
+
+  /* Boutons sous forme de pile, centrés */
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .hero-buttons .btn {
+    min-width: 220px;
+    justify-content: center;
+  }
+
+  /* Nos Techniques : une seule colonne */
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .cards-row-bottom {
+    grid-column: 1 / 2;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cards-grid .card,
+  .cards-row-bottom .card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .section {
+    padding: 3.5rem 0;
+  }
+}
+

@@ -109,4 +109,41 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => observerReveal.observe(el));
   }
 
+
+  /* ----------------------------------------------------------
+     HEADER – APPARITION PROGRESSIVE SUR LA PAGE D'ACCUEIL
+  -----------------------------------------------------------*/
+  const body = document.body;
+
+  // On applique l'effet uniquement sur la home (class is-home sur <body>)
+  if (body.classList.contains('is-home')) {
+    const header = document.querySelector('.site-header');
+
+    if (header) {
+      const SHOW_AFTER = 120; // px de scroll avant d'afficher la nav
+
+      const handleHeaderOnScroll = () => {
+        // Sur mobile / tablette → header toujours visible
+        if (window.innerWidth <= 1023) {
+          header.classList.add('is-visible');
+          return;
+        }
+
+        // Sur desktop → apparition progressive
+        if (window.scrollY > SHOW_AFTER) {
+          header.classList.add('is-visible');
+        } else {
+          header.classList.remove('is-visible');
+        }
+      };
+
+      // Premier check au chargement
+      handleHeaderOnScroll();
+
+      // Mise à jour au scroll + au resize (changement mobile/desktop)
+      window.addEventListener('scroll', handleHeaderOnScroll);
+      window.addEventListener('resize', handleHeaderOnScroll);
+    }
+  }
+
 });
