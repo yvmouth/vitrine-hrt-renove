@@ -52,6 +52,75 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* -------------------------------
+     CARROUSELS DANS LES CARTES SERVICES
+  --------------------------------*/
+  const carousels = document.querySelectorAll('[data-carousel]');
+
+  if (carousels.length > 0) {
+    carousels.forEach((carousel) => {
+      const track = carousel.querySelector('[data-carousel-track]');
+      const slides = track ? Array.from(track.querySelectorAll('.carousel__slide')) : [];
+      const btnPrev = carousel.querySelector('[data-carousel-prev]');
+      const btnNext = carousel.querySelector('[data-carousel-next]');
+      const dotsContainer = carousel.querySelector('[data-carousel-dots]');
+
+      // Sécurité : si la structure est incomplète, on ne fait rien
+      if (!track || slides.length === 0 || !dotsContainer) return;
+
+      let currentIndex = 0;
+
+      // Création dynamique des petits points
+      const dots = slides.map((_, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.classList.add('carousel__dot');
+        if (index === 0) dot.classList.add('is-active');
+
+        dot.addEventListener('click', () => {
+          currentIndex = index;
+          updateCarousel();
+        });
+
+        dotsContainer.appendChild(dot);
+        return dot;
+      });
+
+      function updateCarousel() {
+        const offset = -currentIndex * 100;
+        track.style.transform = `translateX(${offset}%)`;
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('is-active', index === currentIndex);
+        });
+      }
+
+      function goToNext() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+      }
+
+      function goToPrev() {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateCarousel();
+      }
+
+      // Boutons suivant / précédent
+      if (btnNext) btnNext.addEventListener('click', goToNext);
+      if (btnPrev) btnPrev.addEventListener('click', goToPrev);
+
+      // Optionnel : autoplay (décommenter si tu veux l'activer)
+      // let autoplay = setInterval(goToNext, 5000);
+      // carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
+      // carousel.addEventListener('mouseleave', () => {
+      //   autoplay = setInterval(goToNext, 5000);
+      // });
+
+      // Position initiale
+      updateCarousel();
+    });
+  }
+
+  /* -------------------------------
      ANIMATION REVEAL DES CARTES DE SERVICES
   --------------------------------*/
   const cards = document.querySelectorAll('.service-card');

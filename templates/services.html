@@ -13,10 +13,31 @@
 
     <!-- Carte 1 : Aérogommage -->
     <article class="service-card" id="aerogommage">
-      <div class="service-card-image">
-        <img src="{{ url_for('static', filename='img/services/service-aerogommage.jpg') }}"
-             alt="Aérogommage sur pièce métallique">
+      <div class="service-card-image carousel" data-carousel>
+        <div class="carousel__track" data-carousel-track>
+          <img
+            src="{{ url_for('static', filename='img/services/service-aerogommage-1.jpg') }}"
+            alt="Aérogommage sur pièce métallique - vue 1"
+            class="carousel__slide is-active"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-aerogommage-2.jpg') }}"
+            alt="Aérogommage sur pièce métallique - vue 2"
+            class="carousel__slide"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-aerogommage-3.jpg') }}"
+            alt="Aérogommage sur pièce métallique - vue 3"
+            class="carousel__slide"
+          >
+        </div>
+
+        <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev>‹</button>
+        <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next>›</button>
+
+        <div class="carousel__dots" data-carousel-dots></div>
       </div>
+
       <div class="service-card-content">
         <h2>Aérogommage</h2>
         <p class="service-intro">
@@ -35,10 +56,31 @@
 
     <!-- Carte 2 : Vaporblasting -->
     <article class="service-card" id="vaporblasting">
-      <div class="service-card-image">
-        <img src="{{ url_for('static', filename='img/services/service-vaporblasting.jpg') }}"
-             alt="Vaporblasting sur pièce mécanique">
+      <div class="service-card-image carousel" data-carousel>
+        <div class="carousel__track" data-carousel-track>
+          <img
+            src="{{ url_for('static', filename='img/services/service-vaporblasting-1.jpg') }}"
+            alt="Vaporblasting sur pièce mécanique - vue 1"
+            class="carousel__slide is-active"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-vaporblasting-2.jpg') }}"
+            alt="Vaporblasting sur pièce mécanique - vue 2"
+            class="carousel__slide"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-vaporblasting-3.jpg') }}"
+            alt="Vaporblasting sur pièce mécanique - vue 3"
+            class="carousel__slide"
+          >
+        </div>
+
+        <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev>‹</button>
+        <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next>›</button>
+
+        <div class="carousel__dots" data-carousel-dots></div>
       </div>
+
       <div class="service-card-content">
         <h2>Vaporblasting</h2>
         <p class="service-intro">
@@ -57,10 +99,31 @@
 
     <!-- Carte 3 : Cerakote -->
     <article class="service-card" id="cerakote">
-      <div class="service-card-image">
-        <img src="{{ url_for('static', filename='img/services/service-cerakote.jpg') }}"
-             alt="Application de Cerakote">
+      <div class="service-card-image carousel" data-carousel>
+        <div class="carousel__track" data-carousel-track>
+          <img
+            src="{{ url_for('static', filename='img/services/service-cerakote-1.jpg') }}"
+            alt="Application de Cerakote - vue 1"
+            class="carousel__slide is-active"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-cerakote-2.jpg') }}"
+            alt="Application de Cerakote - vue 2"
+            class="carousel__slide"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-cerakote-3.jpg') }}"
+            alt="Application de Cerakote - vue 3"
+            class="carousel__slide"
+          >
+        </div>
+
+        <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev>‹</button>
+        <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next>›</button>
+
+        <div class="carousel__dots" data-carousel-dots></div>
       </div>
+
       <div class="service-card-content">
         <h2>Cerakote</h2>
         <p class="service-intro">
@@ -79,10 +142,31 @@
 
     <!-- Carte 4 : Thermolaquage -->
     <article class="service-card" id="thermolaquage">
-      <div class="service-card-image">
-        <img src="{{ url_for('static', filename='img/services/service-thermolaquage.jpg') }}"
-             alt="Thermolaquage sur structure métallique">
+      <div class="service-card-image carousel" data-carousel>
+        <div class="carousel__track" data-carousel-track>
+          <img
+            src="{{ url_for('static', filename='img/services/service-thermolaquage-1.jpg') }}"
+            alt="Thermolaquage sur structure métallique - vue 1"
+            class="carousel__slide is-active"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-thermolaquage-2.jpg') }}"
+            alt="Thermolaquage sur structure métallique - vue 2"
+            class="carousel__slide"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-thermolaquage-3.jpg') }}"
+            alt="Thermolaquage sur structure métallique - vue 3"
+            class="carousel__slide"
+          >
+        </div>
+
+        <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev>‹</button>
+        <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next>›</button>
+
+        <div class="carousel__dots" data-carousel-dots></div>
       </div>
+
       <div class="service-card-content">
         <h2>Thermolaquage</h2>
         <p class="service-intro">
@@ -101,10 +185,31 @@
 
     <!-- Carte 5 : Sablage / Grenaillage -->
     <article class="service-card" id="sablage-grenaillage">
-      <div class="service-card-image">
-        <img src="{{ url_for('static', filename='img/services/service-sablage.jpg') }}"
-             alt="Sablage sur acier">
+      <div class="service-card-image carousel" data-carousel>
+        <div class="carousel__track" data-carousel-track>
+          <img
+            src="{{ url_for('static', filename='img/services/service-sablage-1.jpg') }}"
+            alt="Sablage sur acier - vue 1"
+            class="carousel__slide is-active"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-sablage-2.jpg') }}"
+            alt="Sablage sur acier - vue 2"
+            class="carousel__slide"
+          >
+          <img
+            src="{{ url_for('static', filename='img/services/service-sablage-3.jpg') }}"
+            alt="Sablage sur acier - vue 3"
+            class="carousel__slide"
+          >
+        </div>
+
+        <button class="carousel__btn carousel__btn--prev" type="button" data-carousel-prev>‹</button>
+        <button class="carousel__btn carousel__btn--next" type="button" data-carousel-next>›</button>
+
+        <div class="carousel__dots" data-carousel-dots></div>
       </div>
+
       <div class="service-card-content">
         <h2>Sablage / Grenaillage</h2>
         <p class="service-intro">
