@@ -1010,6 +1010,91 @@ ul {
   background: #ffffff;
 }
 
+/*LIGHTBOX – VISIONNEUSE PLEIN ÉCRAN*/
+
+body.lightbox-open {
+  overflow: hidden; /* empêche le scroll en arrière-plan */
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;                 /* cachée par défaut */
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.lightbox.is-open {
+  display: flex;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.lightbox__inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 1;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  object-fit: contain;
+}
+
+/* Boutons lightbox (close / prev / next) */
+.lightbox__btn {
+  border: none;
+  background: rgba(15, 23, 42, 0.75);
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.lightbox__btn:hover {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.lightbox__btn--prev,
+.lightbox__btn--next {
+  flex-shrink: 0;
+}
+
+.lightbox__btn--close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+}
+
+/* Curseur zoom sur les images cliquables */
+.carousel__slide {
+  cursor: zoom-in;
+}
+.carousel__slide {
+  cursor: pointer !important;
+}
+
+
 /**************************************************************
  * 8. PAGE À PROPOS
  *************************************************************/

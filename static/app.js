@@ -121,6 +121,110 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* -------------------------------
+     LIGHTBOX – VISIONNEUSE PLEIN ÉCRAN
+     (sur les images des carrousels)
+  --------------------------------*/
+  // Création de la structure HTML de la lightbox
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  lightbox.innerHTML = `
+    <div class="lightbox__backdrop" data-lightbox-close></div>
+    <div class="lightbox__inner">
+      <button class="lightbox__btn lightbox__btn--close" type="button" data-lightbox-close aria-label="Fermer l'image">×</button>
+      <button class="lightbox__btn lightbox__btn--prev" type="button" data-lightbox-prev aria-label="Image précédente">‹</button>
+      <img class="lightbox__img" alt="">
+      <button class="lightbox__btn lightbox__btn--next" type="button" data-lightbox-next aria-label="Image suivante">›</button>
+    </div>
+  `;
+  document.body.appendChild(lightbox);
+
+  const lightboxImg = lightbox.querySelector('.lightbox__img');
+  const lbBtnPrev = lightbox.querySelector('[data-lightbox-prev]');
+  const lbBtnNext = lightbox.querySelector('[data-lightbox-next]');
+  const lbCloseTargets = lightbox.querySelectorAll('[data-lightbox-close]');
+
+  let lbSlides = [];
+  let lbIndex = 0;
+
+  function updateLightbox() {
+    if (!lbSlides.length) return;
+    const slide = lbSlides[lbIndex];
+    if (!slide) return;
+
+    lightboxImg.src = slide.src;
+    lightboxImg.alt = slide.alt || '';
+  }
+
+  function openLightbox(slides, startIndex) {
+    if (!slides || !slides.length) return;
+
+    lbSlides = slides;
+    lbIndex = startIndex >= 0 ? startIndex : 0;
+    updateLightbox();
+
+    lightbox.classList.add('is-open');
+    document.body.classList.add('lightbox-open');
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    document.body.classList.remove('lightbox-open');
+  }
+
+  function goNextLb() {
+    if (!lbSlides.length) return;
+    lbIndex = (lbIndex + 1) % lbSlides.length;
+    updateLightbox();
+  }
+
+  function goPrevLb() {
+    if (!lbSlides.length) return;
+    lbIndex = (lbIndex - 1 + lbSlides.length) % lbSlides.length;
+    updateLightbox();
+  }
+
+  // Boutons / fermeture
+  lbBtnNext.addEventListener('click', goNextLb);
+  lbBtnPrev.addEventListener('click', goPrevLb);
+  lbCloseTargets.forEach(el => {
+    el.addEventListener('click', closeLightbox);
+  });
+
+  // Clavier : Esc, flèches gauche/droite
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+
+    if (e.key === 'Escape') {
+      closeLightbox();
+    } else if (e.key === 'ArrowRight') {
+      goNextLb();
+    } else if (e.key === 'ArrowLeft') {
+      goPrevLb();
+    }
+  });
+
+  // Clic sur les images des carrousels pour ouvrir la lightbox
+  const carouselSlides = document.querySelectorAll('.carousel__slide');
+  carouselSlides.forEach(slide => {
+    slide.style.cursor = 'zoom-in';
+
+    slide.addEventListener('click', () => {
+      const carousel = slide.closest('[data-carousel]');
+      let slides = [];
+
+      if (carousel) {
+        const track = carousel.querySelector('[data-carousel-track]');
+        slides = track ? Array.from(track.querySelectorAll('.carousel__slide')) : [slide];
+      } else {
+        slides = [slide];
+      }
+
+      const startIndex = slides.indexOf(slide);
+      openLightbox(slides, startIndex);
+    });
+  });
+
+  /* -------------------------------
      ANIMATION REVEAL DES CARTES DE SERVICES
   --------------------------------*/
   const cards = document.querySelectorAll('.service-card');
