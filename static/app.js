@@ -254,7 +254,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cards.forEach(card => observerServices.observe(card));
   }
 
-
   /* ----------------------------------------------------------
      ANIMATIONS SCROLL – PAGE A PROPOS
      (Soft reveal / fade-in / fade-left / fade-right)
@@ -282,6 +281,230 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => observerReveal.observe(el));
   }
 
+  /* ----------------------------------------------------------
+     GALERIE – FILTRES, MODAL, CARROUSELS
+  -----------------------------------------------------------*/
+  const galleryPage = document.querySelector('.gallery-page');
+
+  if (galleryPage) {
+    // --- Filtres par technique ---
+    const filterButtons = galleryPage.querySelectorAll('.gallery-filters .btn-chip');
+    // Tous les blocs liés à une technique : cartes principales + carrousels
+    const techniqueBlocks = galleryPage.querySelectorAll('.gallery-technique, .gallery-carousel-block');
+    // Pour le comptage, on garde juste les sections principales
+    const techniqueSections = galleryPage.querySelectorAll('.gallery-technique');
+
+    if (filterButtons.length && techniqueBlocks.length) {
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter || 'all';
+
+        filterButtons.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+          techniqueBlocks.forEach(block => {
+        const tech = block.dataset.technique;
+        if (filter === 'all' || tech === filter) {
+          block.style.display = '';
+        } else {
+          block.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+    // --- Compteurs de projets ---
+    const galleryProjectCards = Array.from(galleryPage.querySelectorAll('.gallery-card'));
+    const allCountEl = document.getElementById('filter-count-all');
+    if (allCountEl) {
+      allCountEl.textContent = galleryProjectCards.length.toString();
+    }
+
+    // Compte par section
+    techniqueSections.forEach(section => {
+      const countSpan = section.querySelector('.gallery-technique__count');
+      if (countSpan) {
+        const count = section.querySelectorAll('.gallery-card').length;
+        countSpan.textContent = count.toString();
+      }
+    });
+
+    // --- Modal / lightbox interne pour les projets ---
+    const projectModal = document.getElementById('project-modal');
+    if (projectModal && galleryProjectCards.length) {
+      const modalBackdrop = projectModal.querySelector('.project-modal__backdrop');
+      const modalCloseButtons = projectModal.querySelectorAll('.js-close-project');
+      const modalTitle = projectModal.querySelector('#project-modal-title');
+      const modalTechnique = projectModal.querySelector('#project-modal-technique');
+      const modalDescription = projectModal.querySelector('#project-modal-description');
+      const modalIndex = projectModal.querySelector('#project-modal-index');
+      const modalImageContainer = projectModal.querySelector('#project-modal-image');
+      const modalStateLabel = projectModal.querySelector('#project-modal-state-label');
+      const toggleButtons = projectModal.querySelectorAll('.project-modal__toggle-btn');
+      const btnPrevProject = projectModal.querySelector('.js-modal-prev');
+      const btnNextProject = projectModal.querySelector('.js-modal-next');
+
+      let currentProjectIndex = 0;
+      let currentView = 'before'; // 'before' ou 'after'
+      let currentBeforeSrc = '';
+      let currentAfterSrc = '';
+
+      function renderModalImage(src, fallbackLabel) {
+        if (!modalImageContainer) return;
+        if (!src) {
+          modalImageContainer.innerHTML =
+            `<div class="project-modal__image-empty">${fallbackLabel || 'Image à venir'}</div>`;
+        } else {
+          const safeSrc = src;
+          const titleText = modalTitle ? modalTitle.textContent || '' : '';
+          modalImageContainer.innerHTML =
+            `<img src="${safeSrc}" alt="${titleText}" class="project-modal__image">`;
+        }
+      }
+
+      function setView(view) {
+        currentView = view;
+
+        toggleButtons.forEach(btn => {
+          const v = btn.dataset.view;
+          btn.classList.toggle('is-active', v === view);
+        });
+
+        if (modalStateLabel) {
+          modalStateLabel.textContent = view === 'before' ? 'Avant' : 'Après';
+        }
+
+        if (view === 'before') {
+          renderModalImage(currentBeforeSrc, 'Visualisation avant traitement');
+        } else {
+          renderModalImage(currentAfterSrc, 'Visualisation après traitement');
+        }
+      }
+
+      function fillModalFromCard(card, index) {
+        currentProjectIndex = index;
+
+        const titleEl = card.querySelector('.gallery-card__title');
+        const descEl = card.querySelector('.gallery-card__text');
+        const technique = card.dataset.technique || '';
+        const beforeSrc = card.dataset.before || card.getAttribute('data-before-src') || '';
+        const afterSrc = card.dataset.after || card.getAttribute('data-after-src') || '';
+
+        currentBeforeSrc = beforeSrc;
+        currentAfterSrc = afterSrc;
+
+        if (modalTitle && titleEl) modalTitle.textContent = titleEl.textContent.trim();
+        if (modalDescription && descEl) modalDescription.textContent = descEl.textContent.trim();
+        if (modalTechnique) {
+          // Capitalise la première lettre pour l’affichage
+          modalTechnique.textContent =
+            technique.charAt(0).toUpperCase() + technique.slice(1);
+        }
+        if (modalIndex) {
+          modalIndex.textContent = `${index + 1} / ${galleryProjectCards.length}`;
+        }
+
+        setView('before');
+      }
+
+      function openProjectModal(card) {
+        const index = galleryProjectCards.indexOf(card);
+        if (index === -1) return;
+
+        fillModalFromCard(card, index);
+        projectModal.classList.add('is-open');
+        document.body.classList.add('project-modal-open');
+      }
+
+      function closeProjectModal() {
+        projectModal.classList.remove('is-open');
+        document.body.classList.remove('project-modal-open');
+      }
+
+      // Ouverture depuis les cartes
+      const openButtons = galleryPage.querySelectorAll('.js-open-project');
+      openButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const card = btn.closest('.gallery-card');
+          if (card) openProjectModal(card);
+        });
+      });
+
+      // Fermeture
+      modalCloseButtons.forEach(btn => {
+        btn.addEventListener('click', closeProjectModal);
+      });
+      if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', closeProjectModal);
+      }
+
+      // Navigation entre projets
+      function showProjectByOffset(offset) {
+        const total = galleryProjectCards.length;
+        currentProjectIndex = (currentProjectIndex + offset + total) % total;
+        const card = galleryProjectCards[currentProjectIndex];
+        fillModalFromCard(card, currentProjectIndex);
+      }
+
+      if (btnPrevProject) {
+        btnPrevProject.addEventListener('click', () => showProjectByOffset(-1));
+      }
+      if (btnNextProject) {
+        btnNextProject.addEventListener('click', () => showProjectByOffset(1));
+      }
+
+      // Boutons Avant / Après
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const view = btn.dataset.view || 'before';
+          setView(view);
+        });
+      });
+
+      // Clavier dans le modal
+      document.addEventListener('keydown', (e) => {
+        if (!projectModal.classList.contains('is-open')) return;
+
+        if (e.key === 'Escape') {
+          closeProjectModal();
+        } else if (e.key === 'ArrowRight') {
+          showProjectByOffset(1);
+        } else if (e.key === 'ArrowLeft') {
+          showProjectByOffset(-1);
+        }
+      });
+    }
+
+    // --- Carrousels "autres réalisations" (Sablage, etc.) ---
+    const galleryCarousels = galleryPage.querySelectorAll('.gallery-carousel');
+    if (galleryCarousels.length) {
+      galleryCarousels.forEach(carousel => {
+        const track = carousel.querySelector('.gallery-carousel__track');
+        const slides = track ? Array.from(track.querySelectorAll('.gallery-carousel__slide')) : [];
+        const btnPrev = carousel.querySelector('.js-carousel-prev');
+        const btnNext = carousel.querySelector('.js-carousel-next');
+
+        if (!track || slides.length === 0) return;
+
+        function scrollBySlide(direction) {
+          const slideWidth = slides[0].offsetWidth || 0;
+          if (!slideWidth) return;
+          track.scrollBy({
+            left: direction * slideWidth,
+            behavior: 'smooth'
+          });
+        }
+
+        if (btnPrev) {
+          btnPrev.addEventListener('click', () => scrollBySlide(-1));
+        }
+        if (btnNext) {
+          btnNext.addEventListener('click', () => scrollBySlide(1));
+        }
+      });
+    }
+  }
 
   /* ----------------------------------------------------------
      HEADER – APPARITION PROGRESSIVE SUR LA PAGE D'ACCUEIL

@@ -1,0 +1,600 @@
+{% extends "base.html" %}
+
+{% block title %}Galerie – HRT Rénove{% endblock %}
+
+{% block content %}
+<main class="gallery-page">
+
+  <!-- HERO / EN-TÊTE PAGE -->
+  <section class="gallery-hero section-padding">
+    <div class="container gallery-hero__inner">
+      <div class="gallery-hero__eyebrow">Nos réalisations</div>
+      <h1 class="section-title">Galerie de Projets</h1>
+      <p class="section-subtitle">
+        Découvrez nos réalisations en traitement de surface. Chaque projet illustre notre expertise
+        et notre engagement vers l’excellence.
+      </p>
+
+      <!-- FILTRES PRINCIPAUX -->
+      <div class="gallery-filters">
+        <button class="btn-chip is-active" data-filter="all">
+          <span class="btn-chip__icon">🌐</span>
+          Tous les projets
+          <span class="btn-chip__badge" id="filter-count-all">10</span>
+        </button>
+
+        <button class="btn-chip" data-filter="sablage">
+          <span class="btn-chip__icon">🪨</span>
+          Sablage
+        </button>
+
+        <button class="btn-chip" data-filter="aerogommage">
+          <span class="btn-chip__icon">💨</span>
+          Aérogommage
+        </button>
+
+        <button class="btn-chip" data-filter="thermolaquage">
+          <span class="btn-chip__icon">🔥</span>
+          Thermolaquage
+        </button>
+
+        <button class="btn-chip" data-filter="cerakote">
+          <span class="btn-chip__icon">🎯</span>
+          Cerakote
+        </button>
+
+        <button class="btn-chip" data-filter="vapor">
+          <span class="btn-chip__icon">💧</span>
+          Vapor Blasting
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENU GALERIE -->
+  <section class="gallery-section section-padding">
+    <div class="container gallery-section__inner">
+
+      <!-- ================= SABLAGE ================ -->
+      <section class="gallery-technique" data-technique="sablage" id="galerie-sablage">
+        <header class="gallery-technique__header">
+          <div class="gallery-technique__icon"></div>
+          <div>
+            <h2 class="gallery-technique__title">Sablage</h2>
+            <p class="gallery-technique__subtitle">
+              <span class="gallery-technique__count" data-technique-count="sablage-principal">2</span>
+              projets principaux
+            </p>
+          </div>
+        </header>
+
+        <!-- Projets principaux sablage -->
+        <div class="gallery-projects-grid">
+          <!-- Carte projet 1 -->
+          <article
+            class="gallery-card"
+            data-technique="sablage"
+            data-project-id="sablage-01"
+            data-project-index="0"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Rénovation jante aluminium</h3>
+              <p class="gallery-card__text">
+                Décapage complet et restauration d’une jante aluminium avec sablage haute
+                pression pour éliminer la corrosion et préparer la surface.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+
+          <!-- Carte projet 2 -->
+          <article
+            class="gallery-card"
+            data-technique="sablage"
+            data-project-id="sablage-02"
+            data-project-index="1"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Pièce industrielle</h3>
+              <p class="gallery-card__text">
+                Décapage et préparation avant peinture d’une pièce industrielle en acier
+                pour une adhérence optimale.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Carrousel "autres réalisations" sablage – BLOC SÉPARÉ -->
+      <div class="gallery-carousel-block" data-technique="sablage">
+        <div class="gallery-carousel">
+          <div class="gallery-carousel__header">
+            <h3 class="gallery-carousel__title">Autres réalisations en Sablage</h3>
+          </div>
+          <div class="gallery-carousel__viewport">
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--prev js-carousel-prev" aria-label="Projet précédent"></button>
+
+            <div class="gallery-carousel__track" data-carousel-technique="sablage">
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Décapage structure métallique</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Préparation surface industrielle</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Sablage châssis véhicule</div>
+              </div>
+            </div>
+
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--next js-carousel-next" aria-label="Projet suivant"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= AÉROGOMMAGE ================ -->
+      <section class="gallery-technique" data-technique="aerogommage" id="galerie-aerogommage">
+        <header class="gallery-technique__header">
+          <div class="gallery-technique__icon"></div>
+          <div>
+            <h2 class="gallery-technique__title">Aérogommage</h2>
+            <p class="gallery-technique__subtitle">
+              <span class="gallery-technique__count" data-technique-count="aerogommage-principal">2</span>
+              projets principaux
+            </p>
+          </div>
+        </header>
+
+        <div class="gallery-projects-grid">
+          <!-- Carte 1 -->
+          <article
+            class="gallery-card"
+            data-technique="aerogommage"
+            data-project-id="aero-01"
+            data-project-index="2"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Rénovation boiseries intérieures</h3>
+              <p class="gallery-card__text">
+                Nettoyage en douceur des boiseries avec un procédé d’aérogommage basse pression
+                pour enlever vernis et salissures sans abîmer le support.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+
+          <!-- Carte 2 -->
+          <article
+            class="gallery-card"
+            data-technique="aerogommage"
+            data-project-id="aero-02"
+            data-project-index="3"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Poutres en chêne apparentes</h3>
+              <p class="gallery-card__text">
+                Décapage de poutres anciennes pour retrouver la teinte naturelle du bois et
+                préparer une nouvelle finition protectrice.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Carrousel Aérogommage -->
+      <div class="gallery-carousel-block" data-technique="aerogommage">
+        <div class="gallery-carousel">
+          <div class="gallery-carousel__header">
+            <h3 class="gallery-carousel__title">Autres réalisations en Aérogommage</h3>
+          </div>
+          <div class="gallery-carousel__viewport">
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--prev js-carousel-prev" aria-label="Projet précédent"></button>
+
+            <div class="gallery-carousel__track" data-carousel-technique="aerogommage">
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Façade briques nettoyée</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Portes en bois massifs</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Escalier intérieur rénové</div>
+              </div>
+            </div>
+
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--next js-carousel-next" aria-label="Projet suivant"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= THERMOLAQUAGE ================ -->
+      <section class="gallery-technique" data-technique="thermolaquage" id="galerie-thermolaquage">
+        <header class="gallery-technique__header">
+          <div class="gallery-technique__icon"></div>
+          <div>
+            <h2 class="gallery-technique__title">Thermolaquage</h2>
+            <p class="gallery-technique__subtitle">
+              <span class="gallery-technique__count" data-technique-count="thermolaquage-principal">2</span>
+              projets principaux
+            </p>
+          </div>
+        </header>
+
+        <div class="gallery-projects-grid">
+          <!-- Carte 1 -->
+          <article
+            class="gallery-card"
+            data-technique="thermolaquage"
+            data-project-id="thermo-01"
+            data-project-index="4"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Châssis acier thermolaqués</h3>
+              <p class="gallery-card__text">
+                Traitement complet de châssis métalliques avec application d’une peinture poudre
+                cuite au four pour une protection durable et uniforme.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+
+          <!-- Carte 2 -->
+          <article
+            class="gallery-card"
+            data-technique="thermolaquage"
+            data-project-id="thermo-02"
+            data-project-index="5"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Mobilier métallique coloré</h3>
+              <p class="gallery-card__text">
+                Personnalisation de mobilier industriel avec une finition thermolaquée
+                résistante aux chocs et aux rayures.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Carrousel Thermolaquage -->
+      <div class="gallery-carousel-block" data-technique="thermolaquage">
+        <div class="gallery-carousel">
+          <div class="gallery-carousel__header">
+            <h3 class="gallery-carousel__title">Autres réalisations en Thermolaquage</h3>
+          </div>
+          <div class="gallery-carousel__viewport">
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--prev js-carousel-prev" aria-label="Projet précédent"></button>
+
+            <div class="gallery-carousel__track" data-carousel-technique="thermolaquage">
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Garde-corps extérieurs</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Portails et clôtures</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Pièces de machines</div>
+              </div>
+            </div>
+
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--next js-carousel-next" aria-label="Projet suivant"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= CERAKOTE ================ -->
+      <section class="gallery-technique" data-technique="cerakote" id="galerie-cerakote">
+        <header class="gallery-technique__header">
+          <div class="gallery-technique__icon"></div>
+          <div>
+            <h2 class="gallery-technique__title">Cerakote</h2>
+            <p class="gallery-technique__subtitle">
+              <span class="gallery-technique__count" data-technique-count="cerakote-principal">2</span>
+              projets principaux
+            </p>
+          </div>
+        </header>
+
+        <div class="gallery-projects-grid">
+          <!-- Carte 1 -->
+          <article
+            class="gallery-card"
+            data-technique="cerakote"
+            data-project-id="cera-01"
+            data-project-index="6"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Pièces moto personnalisées</h3>
+              <p class="gallery-card__text">
+                Application d’un revêtement Cerakote haute performance sur des pièces moto
+                pour un rendu unique et une résistance maximale.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+
+          <!-- Carte 2 -->
+          <article
+            class="gallery-card"
+            data-technique="cerakote"
+            data-project-id="cera-02"
+            data-project-index="7"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Pièces techniques de précision</h3>
+              <p class="gallery-card__text">
+                Protection céramique fine sur des composants soumis à de fortes contraintes
+                mécaniques et thermiques.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Carrousel Cerakote -->
+      <div class="gallery-carousel-block" data-technique="cerakote">
+        <div class="gallery-carousel">
+          <div class="gallery-carousel__header">
+            <h3 class="gallery-carousel__title">Autres réalisations en Cerakote</h3>
+          </div>
+          <div class="gallery-carousel__viewport">
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--prev js-carousel-prev" aria-label="Projet précédent"></button>
+
+            <div class="gallery-carousel__track" data-carousel-technique="cerakote">
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Couvre-culasse personnalisé</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Accessoires moto</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Petites pièces techniques</div>
+              </div>
+            </div>
+
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--next js-carousel-next" aria-label="Projet suivant"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= VAPOR BLASTING ================ -->
+      <section class="gallery-technique" data-technique="vapor" id="galerie-vapor">
+        <header class="gallery-technique__header">
+          <div class="gallery-technique__icon"></div>
+          <div>
+            <h2 class="gallery-technique__title">Vapor Blasting</h2>
+            <p class="gallery-technique__subtitle">
+              <span class="gallery-technique__count" data-technique-count="vapor-principal">2</span>
+              projets principaux
+            </p>
+          </div>
+        </header>
+
+        <div class="gallery-projects-grid">
+          <!-- Carte 1 -->
+          <article
+            class="gallery-card"
+            data-technique="vapor"
+            data-project-id="vapor-01"
+            data-project-index="8"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Carter moteur moto</h3>
+              <p class="gallery-card__text">
+                Nettoyage par projection humide pour redonner un aspect satiné à un carter
+                fortement encrassé sans marquer l’aluminium.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+
+          <!-- Carte 2 -->
+          <article
+            class="gallery-card"
+            data-technique="vapor"
+            data-project-id="vapor-02"
+            data-project-index="9"
+          >
+            <div class="gallery-card__badge">Avant / Après</div>
+            <button class="gallery-card__media js-open-project" type="button">
+              <div class="gallery-card__media-placeholder">
+                <span class="gallery-card__media-icon">🖼️</span>
+              </div>
+            </button>
+            <div class="gallery-card__body">
+              <h3 class="gallery-card__title">Pièces aluminium de précision</h3>
+              <p class="gallery-card__text">
+                Décontamination douce de pièces usinées pour un rendu homogène avant
+                remontage ou traitement complémentaire.
+              </p>
+              <p class="gallery-card__hint">Survolez pour voir le résultat • Cliquez pour agrandir</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Carrousel Vapor Blasting -->
+      <div class="gallery-carousel-block" data-technique="vapor">
+        <div class="gallery-carousel">
+          <div class="gallery-carousel__header">
+            <h3 class="gallery-carousel__title">Autres réalisations en Vapor Blasting</h3>
+          </div>
+          <div class="gallery-carousel__viewport">
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--prev js-carousel-prev" aria-label="Projet précédent"></button>
+
+            <div class="gallery-carousel__track" data-carousel-technique="vapor">
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Carter boîte de vitesses</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Culasse aluminium</div>
+              </div>
+
+              <div class="gallery-carousel__slide">
+                <div class="gallery-carousel__media-placeholder">
+                  <span class="gallery-card__media-icon">🖼️</span>
+                </div>
+                <div class="gallery-carousel__caption">Petites pièces mécaniques</div>
+              </div>
+            </div>
+
+            <button class="gallery-carousel__arrow gallery-carousel__arrow--next js-carousel-next" aria-label="Projet suivant"></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== MODAL / LIGHTBOX PROJET ========== -->
+  <div class="project-modal" id="project-modal" aria-hidden="true">
+    <div class="project-modal__backdrop js-close-project"></div>
+
+    <div class="project-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+      <button class="project-modal__close js-close-project" aria-label="Fermer la fenêtre"></button>
+
+      <header class="project-modal__header">
+        <div>
+          <h2 class="project-modal__title" id="project-modal-title">Titre du projet</h2>
+          <span class="project-modal__tag" id="project-modal-technique">Sablage</span>
+        </div>
+      </header>
+
+      <!-- Zone image avant / après -->
+      <div class="project-modal__media">
+        <div class="project-modal__label" id="project-modal-state-label">Avant</div>
+        <div class="project-modal__image-placeholder" id="project-modal-image">
+          <!-- image chargée en JS plus tard -->
+        </div>
+        <div class="project-modal__toggle">
+          <button class="project-modal__toggle-btn is-active" data-view="before">Voir Avant</button>
+          <button class="project-modal__toggle-btn" data-view="after">Voir Après</button>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <section class="project-modal__description">
+        <h3>Description du projet</h3>
+        <p id="project-modal-description">
+          Texte descriptif du projet – sera rempli dynamiquement en JavaScript.
+        </p>
+      </section>
+
+      <!-- Navigation entre projets -->
+      <footer class="project-modal__footer">
+        <button class="project-modal__nav-btn js-modal-prev">Projet précédent</button>
+        <span class="project-modal__index" id="project-modal-index">2 / 10</span>
+        <button class="project-modal__nav-btn js-modal-next">Projet suivant</button>
+      </footer>
+    </div>
+  </div>
+</main>
+{% endblock %}

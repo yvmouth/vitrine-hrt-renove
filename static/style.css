@@ -1711,6 +1711,643 @@ body.lightbox-open {
 }
 
 /**************************************************************
+ * GALERIE – STRUCTURE GLOBALE
+ *************************************************************/
+
+.gallery-page {
+  background: var(--color-bg-section, #f5f7fb);
+  color: var(--color-text-main, #111827);
+}
+
+/* Hero */
+.gallery-hero {
+  padding-top: 4rem;
+  padding-bottom: 2.5rem;
+}
+
+.gallery-hero__inner {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.gallery-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.9rem;
+  margin-bottom: 0.75rem;
+  border-radius: var(--radius-pill, 999px);
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.gallery-hero .section-title {
+  margin-bottom: 0.75rem;
+}
+
+.gallery-hero .section-subtitle {
+  margin: 0 auto 1.8rem;
+  max-width: 640px;
+  color: var(--color-text-muted, #9ca3af);
+}
+
+/**************************************************************
+ * FILTRES (CHIPS)
+ *************************************************************/
+
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.btn-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-pill, 999px);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.85);
+  color: #e5e7eb;
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.btn-chip__icon {
+  font-size: 0.95rem;
+}
+
+.btn-chip__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.45rem;
+  min-width: 1.35rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: rgba(234, 179, 8, 0.18);
+  color: #facc15;
+  font-size: 0.7rem;
+}
+
+.btn-chip:hover {
+  background: rgba(15, 23, 42, 0.98);
+  border-color: var(--color-primary, #e42127);
+  box-shadow: 0 0 0 1px rgba(228, 33, 39, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-chip.is-active {
+  background: var(--color-primary, #e42127);
+  border-color: var(--color-primary, #e42127);
+  color: #f9fafb;
+  box-shadow: 0 18px 45px rgba(220, 38, 38, 0.45);
+}
+
+.btn-chip.is-active .btn-chip__badge {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+/**************************************************************
+ * SECTIONS TECHNIQUES
+ *************************************************************/
+
+.gallery-section {
+  padding-top: 0;
+  padding-bottom: 4rem;
+}
+
+.gallery-section__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+/* Bloc d’une technique (Sablage, Aérogommage, …) */
+.gallery-technique {
+  padding: 2.5rem 2.1rem;
+  border-radius: var(--radius-xl, 24px);
+  background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.12), transparent 55%), #ffffff;
+  border: 1px solid var(--color-border-soft, #e5e7eb);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08); /* ombre très légère */
+}
+
+
+/* Header d’une technique */
+.gallery-technique__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.gallery-technique__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.1rem;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 1), rgba(55, 65, 81, 0.85));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+}
+
+.gallery-technique__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.gallery-technique__subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-muted, #9ca3af);
+}
+
+.gallery-technique__subtitle .gallery-technique__count {
+  font-weight: 600;
+  color: #e5e7eb;
+}
+/* Bloc carrousel lié à une technique (sous la carte) */
+.gallery-carousel-block {
+  border-radius: var(--radius-xl, 24px);
+  background: #ffffff;
+  border: 1px solid var(--color-border-soft, #e5e7eb);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  padding: 1.8rem 2rem 1.9rem;
+  margin-top: -0.6rem; 
+}
+
+
+/**************************************************************
+ * CARTES PROJETS PRINCIPAUX
+ *************************************************************/
+
+.gallery-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+  margin-bottom: 2.3rem;
+}
+
+/* Carte globale : fond un peu plus clair + bord plus net */
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg, 18px);
+  background: #ffffff; /* FOND CLAIR */
+  border: 1px solid var(--color-border-soft, #e5e7eb);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08); /* ombre douce */
+  display: flex;
+  flex-direction: column;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-card__badge {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  z-index: 2;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--color-primary-soft, rgba(228, 33, 39, 0.08));
+  color: var(--color-primary, #e42127);
+  border: 1px solid rgba(228, 33, 39, 0.35);
+}
+
+/* Zone image */
+.gallery-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background: transparent;
+}
+
+.gallery-card__media-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg, 18px) 18px 0 0;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 2rem;
+}
+
+.gallery-card__media-icon {
+  filter: drop-shadow(0 0 18px rgba(250, 204, 21, 0.6));
+}
+
+.gallery-card__media::after {
+  content: "Cliquer pour voir le projet";
+  position: absolute;
+  inset: auto 0 0;
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  color: #e5e7eb;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.gallery-card:hover .gallery-card__media::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Corps de la carte : fond plein pour bien détacher le texte */
+.gallery-card__body {
+  background: #ffffff; /* même fond que la carte */
+  border-top: 1px solid var(--color-border-soft, #e5e7eb);
+  border-radius: 0 0 var(--radius-lg, 18px) 18px;
+  padding: 1.1rem 1.3rem 1.2rem;
+}
+
+.gallery-card__title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.4rem;
+}
+
+.gallery-card__text {
+  font-size: 0.92rem;
+  color: #374151; /* gris foncé – lisible */
+  line-height: 1.55;
+  margin-bottom: 0.6rem;
+}
+
+.gallery-card__hint {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  opacity: 0.9;
+}
+
+
+/**************************************************************
+ * CARROUSEL "AUTRES RÉALISATIONS"
+ *************************************************************/
+
+.gallery-carousel {
+  margin-top: 0.75rem;
+  padding: 1.3rem 1.4rem 1.4rem;
+  border-radius: var(--radius-lg, 18px);
+  background: #ffffff;
+  border: 1px solid var(--color-border-soft, #e5e7eb);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.gallery-carousel__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.gallery-carousel__title {
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+/* viewport + flèches */
+.gallery-carousel__viewport {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.gallery-carousel__track {
+  overflow: hidden;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(340px, 1fr); /* cartes plus larges */
+  gap: 1.4rem;
+  padding: 0.6rem 0;
+}
+
+.gallery-carousel__slide {
+  border-radius: var(--radius-md, 14px);
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--color-border-soft, #e5e7eb);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-carousel__media-placeholder {
+  aspect-ratio: 4 / 3;
+  max-height: 300px;
+}
+
+.gallery-carousel__caption {
+  padding: 0.65rem 0.8rem 0.75rem;
+  font-size: 0.84rem;
+  color: #111827;
+}
+
+.gallery-carousel__arrow {
+  flex: 0 0 auto;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  border-color: rgba(228, 33, 39, 0.45);
+  background: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 150ms ease, transform 120ms ease, border-color 150ms ease;
+  position: relative;
+}
+
+.gallery-carousel__arrow::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-top: 2px solid #e5e7eb;
+  border-right: 2px solid #e5e7eb;
+  transform: rotate(135deg);
+}
+
+.gallery-carousel__arrow--next::before {
+  transform: rotate(-45deg);
+}
+
+.gallery-carousel__arrow:hover {
+  border-color: var(--color-primary, #e42127);
+  background: var(--color-primary, #e42127);
+  transform: translateY(-1px);
+}
+
+/**************************************************************
+ * MODAL / LIGHTBOX PROJET
+ *************************************************************/
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+}
+
+.project-modal.is-open {
+  display: block;
+}
+
+.project-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(6px);
+}
+
+.project-modal__dialog {
+  position: relative;
+  max-width: 960px;
+  margin: 2.5rem auto;
+  background: #020617;
+  border-radius: 24px;
+  border: 1px solid rgba(55, 65, 81, 0.9);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.75);
+  padding: 1.7rem 1.9rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.project-modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1.1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.95);
+  cursor: pointer;
+}
+
+.project-modal__close::before,
+.project-modal__close::after {
+  content: "";
+  position: absolute;
+  inset: 50%;
+  width: 60%;
+  height: 2px;
+  background: #e5e7eb;
+  transform-origin: center;
+}
+
+.project-modal__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.project-modal__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.project-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding-right: 2.5rem;
+}
+
+.project-modal__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.project-modal__tag {
+  display: inline-flex;
+  margin-top: 0.2rem;
+  padding: 0.18rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: rgba(248, 250, 252, 0.05);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  color: #e5e7eb;
+}
+
+/* Zone image + boutons Avant/Après */
+.project-modal__media {
+  border-radius: var(--radius-lg, 18px);
+  background: radial-gradient(circle at center, #111827, #020617);
+  padding: 0.9rem 0.9rem 1rem;
+}
+
+.project-modal__label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+  color: #e5e7eb;
+}
+
+.project-modal__image-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md, 14px);
+  background: radial-gradient(circle at center, #111827, #020617);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4b5563;
+}
+
+.project-modal__toggle {
+  display: inline-flex;
+  margin-top: 0.8rem;
+  border-radius: 999px;
+  padding: 0.12rem;
+  background: rgba(15, 23, 42, 1);
+  border: 1px solid rgba(55, 65, 81, 0.95);
+}
+
+.project-modal__toggle-btn {
+  border: none;
+  background: transparent;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: #e5e7eb;
+}
+
+.project-modal__toggle-btn.is-active {
+  background: #e5e7eb;
+  color: #020617;
+}
+
+/* Description + footer */
+.project-modal__description h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+
+.project-modal__description p {
+  font-size: 0.88rem;
+  color: var(--color-text-muted, #9ca3af);
+}
+
+.project-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.project-modal__nav-btn {
+  border-radius: var(--radius-pill, 999px);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.98);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: #e5e7eb;
+}
+
+.project-modal__nav-btn:hover {
+  border-color: var(--color-primary, #e42127);
+  background: var(--color-primary, #e42127);
+}
+
+.project-modal__index {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/**************************************************************
+ * RESPONSIVE
+ *************************************************************/
+
+@media (max-width: 960px) {
+  .gallery-technique {
+    padding: 1.8rem 1.4rem;
+  }
+
+  .project-modal__dialog {
+    margin: 1.5rem auto;
+    max-width: calc(100% - 2rem);
+    padding: 1.4rem 1.3rem 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gallery-technique__header {
+    align-items: flex-start;
+  }
+
+  .gallery-carousel__track {
+    grid-auto-columns: minmax(75%, 1fr);
+  }
+
+  .gallery-filters {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.3rem;
+  }
+
+  .gallery-filters::-webkit-scrollbar {
+    height: 4px;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-modal__header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 1.8rem;
+  }
+
+  .project-modal__footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .project-modal__nav-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .project-modal__index {
+    align-self: center;
+  }
+}
+
+/**************************************************************
  * 10. FOOTER
  *************************************************************/
 
