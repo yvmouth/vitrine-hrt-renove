@@ -108,13 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (btnNext) btnNext.addEventListener('click', goToNext);
       if (btnPrev) btnPrev.addEventListener('click', goToPrev);
 
-      // Optionnel : autoplay (décommenter si tu veux l'activer)
-      // let autoplay = setInterval(goToNext, 5000);
-      // carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
-      // carousel.addEventListener('mouseleave', () => {
-      //   autoplay = setInterval(goToNext, 5000);
-      // });
-
       // Position initiale
       updateCarousel();
     });
@@ -122,9 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* -------------------------------
      LIGHTBOX – VISIONNEUSE PLEIN ÉCRAN
-     (sur les images des carrousels)
+     (sur les images des carrousels de SERVICES)
   --------------------------------*/
-  // Création de la structure HTML de la lightbox
+  // Création de la structure HTML de la lightbox générique
   const lightbox = document.createElement('div');
   lightbox.className = 'lightbox';
   lightbox.innerHTML = `
@@ -203,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Clic sur les images des carrousels pour ouvrir la lightbox
+  // Clic sur les images des carrousels de SERVICES pour ouvrir la lightbox
   const carouselSlides = document.querySelectorAll('.carousel__slide');
   carouselSlides.forEach(slide => {
     slide.style.cursor = 'zoom-in';
@@ -282,226 +275,185 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ----------------------------------------------------------
-     GALERIE – FILTRES, MODAL, CARROUSELS
+     GALERIE – NOUVELLE VERSION
+     (projets phares + carrousels par technique + lightbox)
   -----------------------------------------------------------*/
   const galleryPage = document.querySelector('.gallery-page');
 
   if (galleryPage) {
-    // --- Filtres par technique ---
-    const filterButtons = galleryPage.querySelectorAll('.gallery-filters .btn-chip');
-    // Tous les blocs liés à une technique : cartes principales + carrousels
-    const techniqueBlocks = galleryPage.querySelectorAll('.gallery-technique, .gallery-carousel-block');
-    // Pour le comptage, on garde juste les sections principales
-    const techniqueSections = galleryPage.querySelectorAll('.gallery-technique');
-
-    if (filterButtons.length && techniqueBlocks.length) {
-      filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter || 'all';
-
-        filterButtons.forEach(b => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-
-          techniqueBlocks.forEach(block => {
-        const tech = block.dataset.technique;
-        if (filter === 'all' || tech === filter) {
-          block.style.display = '';
-        } else {
-          block.style.display = 'none';
+    /* --- Scroll smooth depuis "Voir plus de photos" --- */
+    const scrollButtons = galleryPage.querySelectorAll('[data-scroll-target]');
+    scrollButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetSelector = btn.dataset.scrollTarget;
+        if (!targetSelector) return;
+        const target = document.querySelector(targetSelector);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
-  });
-}
 
-    // --- Compteurs de projets ---
-    const galleryProjectCards = Array.from(galleryPage.querySelectorAll('.gallery-card'));
-    const allCountEl = document.getElementById('filter-count-all');
-    if (allCountEl) {
-      allCountEl.textContent = galleryProjectCards.length.toString();
-    }
+    /* --- Carrousels par technique (.tech-carousel) --- */
+    const techCarousels = galleryPage.querySelectorAll('.tech-carousel');
 
-    // Compte par section
-    techniqueSections.forEach(section => {
-      const countSpan = section.querySelector('.gallery-technique__count');
-      if (countSpan) {
-        const count = section.querySelectorAll('.gallery-card').length;
-        countSpan.textContent = count.toString();
-      }
-    });
+    techCarousels.forEach(carousel => {
+      const track = carousel.querySelector('[data-carousel-track]');
+      if (!track) return;
 
-    // --- Modal / lightbox interne pour les projets ---
-    const projectModal = document.getElementById('project-modal');
-    if (projectModal && galleryProjectCards.length) {
-      const modalBackdrop = projectModal.querySelector('.project-modal__backdrop');
-      const modalCloseButtons = projectModal.querySelectorAll('.js-close-project');
-      const modalTitle = projectModal.querySelector('#project-modal-title');
-      const modalTechnique = projectModal.querySelector('#project-modal-technique');
-      const modalDescription = projectModal.querySelector('#project-modal-description');
-      const modalIndex = projectModal.querySelector('#project-modal-index');
-      const modalImageContainer = projectModal.querySelector('#project-modal-image');
-      const modalStateLabel = projectModal.querySelector('#project-modal-state-label');
-      const toggleButtons = projectModal.querySelectorAll('.project-modal__toggle-btn');
-      const btnPrevProject = projectModal.querySelector('.js-modal-prev');
-      const btnNextProject = projectModal.querySelector('.js-modal-next');
+      const slides = Array.from(track.querySelectorAll('.tech-carousel__slide'));
+      if (!slides.length) return;
 
-      let currentProjectIndex = 0;
-      let currentView = 'before'; // 'before' ou 'after'
-      let currentBeforeSrc = '';
-      let currentAfterSrc = '';
+      const btnPrev = carousel.querySelector('.carousel-btn--prev');
+      const btnNext = carousel.querySelector('.carousel-btn--next');
 
-      function renderModalImage(src, fallbackLabel) {
-        if (!modalImageContainer) return;
-        if (!src) {
-          modalImageContainer.innerHTML =
-            `<div class="project-modal__image-empty">${fallbackLabel || 'Image à venir'}</div>`;
+      const dotsContainer = carousel.parentElement.querySelector('.tech-carousel__dots');
+      let dots = [];
+
+      if (dotsContainer) {
+        const existingDots = Array.from(dotsContainer.querySelectorAll('.tech-dot'));
+        if (existingDots.length === slides.length) {
+          dots = existingDots;
         } else {
-          const safeSrc = src;
-          const titleText = modalTitle ? modalTitle.textContent || '' : '';
-          modalImageContainer.innerHTML =
-            `<img src="${safeSrc}" alt="${titleText}" class="project-modal__image">`;
-        }
-      }
-
-      function setView(view) {
-        currentView = view;
-
-        toggleButtons.forEach(btn => {
-          const v = btn.dataset.view;
-          btn.classList.toggle('is-active', v === view);
-        });
-
-        if (modalStateLabel) {
-          modalStateLabel.textContent = view === 'before' ? 'Avant' : 'Après';
-        }
-
-        if (view === 'before') {
-          renderModalImage(currentBeforeSrc, 'Visualisation avant traitement');
-        } else {
-          renderModalImage(currentAfterSrc, 'Visualisation après traitement');
-        }
-      }
-
-      function fillModalFromCard(card, index) {
-        currentProjectIndex = index;
-
-        const titleEl = card.querySelector('.gallery-card__title');
-        const descEl = card.querySelector('.gallery-card__text');
-        const technique = card.dataset.technique || '';
-        const beforeSrc = card.dataset.before || card.getAttribute('data-before-src') || '';
-        const afterSrc = card.dataset.after || card.getAttribute('data-after-src') || '';
-
-        currentBeforeSrc = beforeSrc;
-        currentAfterSrc = afterSrc;
-
-        if (modalTitle && titleEl) modalTitle.textContent = titleEl.textContent.trim();
-        if (modalDescription && descEl) modalDescription.textContent = descEl.textContent.trim();
-        if (modalTechnique) {
-          // Capitalise la première lettre pour l’affichage
-          modalTechnique.textContent =
-            technique.charAt(0).toUpperCase() + technique.slice(1);
-        }
-        if (modalIndex) {
-          modalIndex.textContent = `${index + 1} / ${galleryProjectCards.length}`;
-        }
-
-        setView('before');
-      }
-
-      function openProjectModal(card) {
-        const index = galleryProjectCards.indexOf(card);
-        if (index === -1) return;
-
-        fillModalFromCard(card, index);
-        projectModal.classList.add('is-open');
-        document.body.classList.add('project-modal-open');
-      }
-
-      function closeProjectModal() {
-        projectModal.classList.remove('is-open');
-        document.body.classList.remove('project-modal-open');
-      }
-
-      // Ouverture depuis les cartes
-      const openButtons = galleryPage.querySelectorAll('.js-open-project');
-      openButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const card = btn.closest('.gallery-card');
-          if (card) openProjectModal(card);
-        });
-      });
-
-      // Fermeture
-      modalCloseButtons.forEach(btn => {
-        btn.addEventListener('click', closeProjectModal);
-      });
-      if (modalBackdrop) {
-        modalBackdrop.addEventListener('click', closeProjectModal);
-      }
-
-      // Navigation entre projets
-      function showProjectByOffset(offset) {
-        const total = galleryProjectCards.length;
-        currentProjectIndex = (currentProjectIndex + offset + total) % total;
-        const card = galleryProjectCards[currentProjectIndex];
-        fillModalFromCard(card, currentProjectIndex);
-      }
-
-      if (btnPrevProject) {
-        btnPrevProject.addEventListener('click', () => showProjectByOffset(-1));
-      }
-      if (btnNextProject) {
-        btnNextProject.addEventListener('click', () => showProjectByOffset(1));
-      }
-
-      // Boutons Avant / Après
-      toggleButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const view = btn.dataset.view || 'before';
-          setView(view);
-        });
-      });
-
-      // Clavier dans le modal
-      document.addEventListener('keydown', (e) => {
-        if (!projectModal.classList.contains('is-open')) return;
-
-        if (e.key === 'Escape') {
-          closeProjectModal();
-        } else if (e.key === 'ArrowRight') {
-          showProjectByOffset(1);
-        } else if (e.key === 'ArrowLeft') {
-          showProjectByOffset(-1);
-        }
-      });
-    }
-
-    // --- Carrousels "autres réalisations" (Sablage, etc.) ---
-    const galleryCarousels = galleryPage.querySelectorAll('.gallery-carousel');
-    if (galleryCarousels.length) {
-      galleryCarousels.forEach(carousel => {
-        const track = carousel.querySelector('.gallery-carousel__track');
-        const slides = track ? Array.from(track.querySelectorAll('.gallery-carousel__slide')) : [];
-        const btnPrev = carousel.querySelector('.js-carousel-prev');
-        const btnNext = carousel.querySelector('.js-carousel-next');
-
-        if (!track || slides.length === 0) return;
-
-        function scrollBySlide(direction) {
-          const slideWidth = slides[0].offsetWidth || 0;
-          if (!slideWidth) return;
-          track.scrollBy({
-            left: direction * slideWidth,
-            behavior: 'smooth'
+          dotsContainer.innerHTML = '';
+          dots = slides.map((_, index) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'tech-dot';
+            if (index === 0) dot.classList.add('is-active');
+            dot.dataset.index = String(index);
+            dotsContainer.appendChild(dot);
+            return dot;
           });
         }
+      }
 
-        if (btnPrev) {
-          btnPrev.addEventListener('click', () => scrollBySlide(-1));
+      let currentIndex = 0;
+
+      function updateCarousel() {
+        const offset = -currentIndex * 100;
+        track.style.transform = `translateX(${offset}%)`;
+
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('is-active', i === currentIndex);
+        });
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('is-active', i === currentIndex);
+        });
+      }
+
+      function goTo(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        currentIndex = index;
+        updateCarousel();
+      }
+
+      if (btnPrev) btnPrev.addEventListener('click', () => goTo(currentIndex - 1));
+      if (btnNext) btnNext.addEventListener('click', () => goTo(currentIndex + 1));
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.dataset.index || '0', 10);
+          goTo(idx);
+        });
+      });
+
+      // Position initiale
+      updateCarousel();
+    });
+
+    /* --- Lightbox dédiée à la galerie (#gallery-lightbox) --- */
+    const galleryLightbox = document.getElementById('gallery-lightbox');
+
+    if (galleryLightbox) {
+      const lbBackdrop = galleryLightbox.querySelector('.gallery-lightbox__backdrop');
+      const lbCloseButtons = galleryLightbox.querySelectorAll('[data-lightbox-close]');
+      const lbPrev = galleryLightbox.querySelector('[data-lightbox-prev]');
+      const lbNext = galleryLightbox.querySelector('[data-lightbox-next]');
+      const lbImage = document.getElementById('lightbox-image');
+      const lbCaption = document.getElementById('lightbox-caption');
+
+      let currentGroup = [];
+      let currentIndex = 0;
+
+      function renderGalleryLightbox() {
+        if (!currentGroup.length || !lbImage) return;
+        const item = currentGroup[currentIndex];
+        lbImage.src = item.src;
+        lbImage.alt = item.alt || '';
+        if (lbCaption) {
+          lbCaption.textContent = item.alt || '';
         }
-        if (btnNext) {
-          btnNext.addEventListener('click', () => scrollBySlide(1));
+      }
+
+      function openFromButton(btn) {
+        let selector = null;
+
+        if (btn.dataset.gallery) {
+          selector = `[data-gallery="${btn.dataset.gallery}"]`;
+        } else if (btn.dataset.lightbox) {
+          selector = `[data-lightbox="${btn.dataset.lightbox}"]`;
         }
+
+        let buttons = [];
+        if (selector) {
+          buttons = Array.from(document.querySelectorAll(selector));
+        } else {
+          buttons = [btn];
+        }
+
+        currentGroup = buttons.map(b => {
+          const img = b.querySelector('img');
+          return {
+            src: img ? img.src : '',
+            alt: img ? img.alt : ''
+          };
+        });
+
+        currentIndex = buttons.indexOf(btn);
+        if (currentIndex < 0) currentIndex = 0;
+
+        renderGalleryLightbox();
+        galleryLightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+      }
+
+      function closeGalleryLightbox() {
+        galleryLightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+      }
+
+      function nextGalleryImage() {
+        if (!currentGroup.length) return;
+        currentIndex = (currentIndex + 1) % currentGroup.length;
+        renderGalleryLightbox();
+      }
+
+      function prevGalleryImage() {
+        if (!currentGroup.length) return;
+        currentIndex = (currentIndex - 1 + currentGroup.length) % currentGroup.length;
+        renderGalleryLightbox();
+      }
+
+      // Bind sur toutes les vignettes / images cliquables de la galerie
+      const thumbButtons = galleryPage.querySelectorAll('.project-thumb, .tech-carousel__image-btn');
+      thumbButtons.forEach(btn => {
+        btn.addEventListener('click', () => openFromButton(btn));
+      });
+
+      lbCloseButtons.forEach(el => el.addEventListener('click', closeGalleryLightbox));
+      if (lbBackdrop) lbBackdrop.addEventListener('click', closeGalleryLightbox);
+      if (lbNext) lbNext.addEventListener('click', nextGalleryImage);
+      if (lbPrev) lbPrev.addEventListener('click', prevGalleryImage);
+
+      document.addEventListener('keydown', (e) => {
+        if (galleryLightbox.getAttribute('aria-hidden') === 'true') return;
+
+        if (e.key === 'Escape') closeGalleryLightbox();
+        if (e.key === 'ArrowRight') nextGalleryImage();
+        if (e.key === 'ArrowLeft') prevGalleryImage();
       });
     }
   }
