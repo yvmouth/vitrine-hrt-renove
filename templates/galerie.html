@@ -484,29 +484,38 @@
   <!-- LIGHTBOX GLOBALE (masquée par défaut, gérée en JS) -->
   <div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true">
     <div class="gallery-lightbox__backdrop" data-lightbox-close></div>
+
     <div class="gallery-lightbox__dialog" role="dialog" aria-modal="true">
+      <!-- Bouton fermer (on ne bouge pas) -->
       <button class="gallery-lightbox__close" type="button" aria-label="Fermer" data-lightbox-close>
         ×
       </button>
-      <button class="gallery-lightbox__nav gallery-lightbox__nav--prev"
-              type="button"
-              aria-label="Image précédente"
-              data-lightbox-prev>
-        ‹
-      </button>
+
+      <!-- Contenu image + textes -->
       <div class="gallery-lightbox__content">
         <img src="" alt="" id="lightbox-image">
         <p class="gallery-lightbox__tech" id="lightbox-tech"></p>
         <p class="gallery-lightbox__caption" id="lightbox-caption"></p>
       </div>
-      <button class="gallery-lightbox__nav gallery-lightbox__nav--next"
-              type="button"
-              aria-label="Image suivante"
-              data-lightbox-next>
-        ›
-      </button>
+
+      <!-- NOUVEAU : conteneur pour les 2 flèches côte à côte -->
+      <div class="gallery-lightbox__arrows">
+        <button class="gallery-lightbox__nav gallery-lightbox__nav--prev"
+                type="button"
+                aria-label="Image précédente"
+                data-lightbox-prev>
+          ‹
+        </button>
+        <button class="gallery-lightbox__nav gallery-lightbox__nav--next"
+                type="button"
+                aria-label="Image suivante"
+                data-lightbox-next>
+          ›
+        </button>
+      </div>
     </div>
   </div>
+
 
 </main>
 {% endblock %}
