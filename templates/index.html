@@ -4,6 +4,55 @@
 
 {% block content %}
 
+<!-- Sprite SVG pour les icônes des techniques -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     style="position:absolute; width:0; height:0; overflow:hidden;">
+  <!-- Aérogommage : buse / jet -->
+  <symbol id="icon-aerogommage" viewBox="0 0 24 24">
+    <path d="M4 11h7l3-3 6-1-1 6-3 3v7h-2v-6l-3-3H4z"
+          fill="currentColor"/>
+  </symbol>
+
+  <!-- Vaporblasting : gouttes + ondulations -->
+  <symbol id="icon-vaporblasting" viewBox="0 0 24 24">
+    <path d="M7 5c1.5 2 2.5 3.5 2.5 5A3.5 3.5 0 1 1 3.5 10C3.5 8.5 5 7 7 5z"
+          fill="currentColor"/>
+    <path d="M4 17c1 .6 2.1 1 3.5 1S10 17.6 11 17"
+          stroke="currentColor" stroke-width="1.5" fill="none"
+          stroke-linecap="round"/>
+    <path d="M8 19c1 .6 2.1 1 3.5 1S13 19.6 14 19"
+          stroke="currentColor" stroke-width="1.5" fill="none"
+          stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Cerakote : bouclier -->
+  <symbol id="icon-cerakote" viewBox="0 0 24 24">
+    <path d="M4 6l8-3 8 3v5c0 5-3.3 8.1-8 10-4.7-1.9-8-5-8-10V6z"
+          fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linejoin="round"/>
+    <path d="M9 11l2 3 4-5"
+          fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- Thermolaquage : flamme stylisée -->
+  <symbol id="icon-thermolaquage" viewBox="0 0 24 24">
+    <path d="M12 3c1 2 3 3.5 3 6.2C15 12 13.5 13 13.5 14.7 13.5 16.6 15 18 12 21
+             9 18 10.5 16.6 10.5 14.7 10.5 13 9 12 9 9.2 9 6.5 11 5 12 3z"
+          fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- Sablage & grenaillage : roue dentée -->
+  <symbol id="icon-sablage-grenaillage" viewBox="0 0 24 24">
+    <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"
+          fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M12 2v2.2M18.2 5.8 16.7 7.3M22 12h-2.2M18.2 18.2 16.7 16.7M12 22v-2.2M5.8 18.2 7.3 16.7M2 12h2.2M5.8 5.8 7.3 7.3"
+          stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round"/>
+  </symbol>
+</svg>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg" style="background-image: url('{{ url_for('static', filename='img/hero-atelier.jpg') }}');"></div>
@@ -58,89 +107,101 @@
     </div>
     <div class="cards-grid">
 
-  <!-- Ligne du haut : 3 cartes dans la grille -->
-  <!-- Aerogommage -->
-  <a href="{{ url_for('services') }}#aerogommage" class="card-link">
-    <article class="card">
-      <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-aerogommage-1.jpg') }}');">
-        <div class="card-icon">
-          <span>✦</span>
-        </div>
-      </div>
-      <div class="card-body">
-        <h3>Aérogommage</h3>
-        <p>Décapage doux et précis pour meubles, pièces mécaniques et supports délicats.</p>
-      </div>
-    </article>
-  </a>
-
-  <!-- Vaporblasting -->
-  <a href="{{ url_for('services') }}#vaporblasting" class="card-link">
-    <article class="card">
-      <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-vaporblasting-1.jpg') }}');">
-        <div class="card-icon">
-          <span>💧</span>
-        </div>
-      </div>
-      <div class="card-body">
-        <h3>Vaporblasting</h3>
-        <p>Finition satinée exceptionnelle par sablage humide, idéale pour pièces moto et auto.</p>
-      </div>
-    </article>
-  </a>
-
-  <!-- Cerakote -->
-  <a href="{{ url_for('services') }}#cerakote" class="card-link">
-    <article class="card">
-      <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-cerakote-1.jpg') }}');">
-        <div class="card-icon">
-          <span>🛡</span>
-        </div>
-      </div>
-      <div class="card-body">
-        <h3>Cerakote</h3>
-        <p>Revêtement céramique ultra résistant pour pièces soumises aux contraintes extrêmes.</p>
-      </div>
-    </article>
-  </a>
-
-  <!-- Ligne du bas : 2 cartes dans un conteneur centré -->
-  <div class="cards-row-bottom">
-    <!-- Thermolaquage -->
-    <a href="{{ url_for('services') }}#thermolaquage" class="card-link">
-      <article class="card">
-        <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-thermolaquage-1.jpg') }}');">
-          <div class="card-icon">
-            <span>🔥</span>
+      <!-- Ligne du haut : 3 cartes dans la grille -->
+      <!-- Aerogommage -->
+      <a href="{{ url_for('services') }}#aerogommage" class="card-link">
+        <article class="card">
+          <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-aerogommage-1.jpg') }}');">
+            <div class="card-icon">
+              <svg class="card-icon__svg" aria-hidden="true" focusable="false">
+                <use href="#icon-aerogommage"></use>
+              </svg>
+            </div>
           </div>
-        </div>
-        <div class="card-body">
-          <h3>Thermolaquage</h3>
-          <p>Peinture poudre durable et esthétique pour structures métalliques et mobiliers.</p>
-        </div>
-      </article>
-    </a>
-
-    <!-- Sablage & grenaillage -->
-    <a href="{{ url_for('services') }}#sablage-grenaillage" class="card-link">
-      <article class="card">
-        <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-sablage-1.jpg') }}');">
-          <div class="card-icon">
-            <span>⚙</span>
+          <div class="card-body">
+            <h3>Aérogommage</h3>
+            <p>Décapage doux et précis pour meubles, pièces mécaniques et supports délicats.</p>
           </div>
-        </div>
-        <div class="card-body">
-          <h3>Sablage &amp; Grenaillage</h3>
-          <p>Préparation de surface professionnelle pour grandes pièces et châssis métalliques.</p>
-        </div>
-      </article>
-    </a>
-  </div>
-</div>
-  <div class="section-cta">
-    <a href="{{ url_for('services') }}" class="btn btn-outline btn-interactive">
-      En savoir plus sur nos services
-    </a>
+        </article>
+      </a>
+
+      <!-- Vaporblasting -->
+      <a href="{{ url_for('services') }}#vaporblasting" class="card-link">
+        <article class="card">
+          <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-vaporblasting-1.jpg') }}');">
+            <div class="card-icon">
+              <svg class="card-icon__svg" aria-hidden="true" focusable="false">
+                <use href="#icon-vaporblasting"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3>Vaporblasting</h3>
+            <p>Finition satinée exceptionnelle par sablage humide, idéale pour pièces moto et auto.</p>
+          </div>
+        </article>
+      </a>
+
+      <!-- Cerakote -->
+      <a href="{{ url_for('services') }}#cerakote" class="card-link">
+        <article class="card">
+          <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-cerakote-1.jpg') }}');">
+            <div class="card-icon">
+              <svg class="card-icon__svg" aria-hidden="true" focusable="false">
+                <use href="#icon-cerakote"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3>Cerakote</h3>
+            <p>Revêtement céramique ultra résistant pour pièces soumises aux contraintes extrêmes.</p>
+          </div>
+        </article>
+      </a>
+
+      <!-- Ligne du bas : 2 cartes dans un conteneur centré -->
+      <div class="cards-row-bottom">
+        <!-- Thermolaquage -->
+        <a href="{{ url_for('services') }}#thermolaquage" class="card-link">
+          <article class="card">
+            <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-thermolaquage-1.jpg') }}');">
+              <div class="card-icon">
+                <svg class="card-icon__svg" aria-hidden="true" focusable="false">
+                  <use href="#icon-thermolaquage"></use>
+                </svg>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3>Thermolaquage</h3>
+              <p>Peinture poudre durable et esthétique pour structures métalliques et mobiliers.</p>
+            </div>
+          </article>
+        </a>
+
+        <!-- Sablage & grenaillage -->
+        <a href="{{ url_for('services') }}#sablage-grenaillage" class="card-link">
+          <article class="card">
+            <div class="card-image" style="background-image: url('{{ url_for('static', filename='img/services/service-sablage-1.jpg') }}');">
+              <div class="card-icon">
+                <svg class="card-icon__svg" aria-hidden="true" focusable="false">
+                  <use href="#icon-sablage-grenaillage"></use>
+                </svg>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3>Sablage &amp; Grenaillage</h3>
+              <p>Préparation de surface professionnelle pour grandes pièces et châssis métalliques.</p>
+            </div>
+          </article>
+        </a>
+      </div>
+    </div>
+
+    <div class="section-cta">
+      <a href="{{ url_for('services') }}" class="btn btn-outline btn-interactive">
+        En savoir plus sur nos services
+      </a>
+    </div>
   </div>
 </section>
 
@@ -156,10 +217,35 @@
     </div>
 
     <div class="instagram-widget-wrapper">
-      
-      <div id="ft-insta-app"></div><script type="module">import App from "https://cdn.fouita.com/public/instagram-feed.js?11";
-      new App({target: document.getElementById("ft-insta-app"),
-      props:{"settings":{"layout":"carousel","source":"insta","selected":"uname","header":true,"autoplay":true,"zigzag":false,"cols":4,"cardHeight":300,"gap":0,"direction":"down","height":700,"bgColor":"","txtColor":"","ukey":"e6224292-e026-465c-a7ff-42734d6a1641"}}});</script><div id="ft-insta-brd"><a href="https://fouita.com/website-widgets/instagram-feed" target="_blank">Embed Instagram Feed</a><a href="https://fouita.com" target="_blank">with Fouita</a></div>
+      <div id="ft-insta-app"></div>
+      <script type="module">
+        import App from "https://cdn.fouita.com/public/instagram-feed.js?11";
+        new App({
+          target: document.getElementById("ft-insta-app"),
+          props: {
+            "settings": {
+              "layout": "carousel",
+              "source": "insta",
+              "selected": "uname",
+              "header": true,
+              "autoplay": true,
+              "zigzag": false,
+              "cols": 4,
+              "cardHeight": 300,
+              "gap": 0,
+              "direction": "down",
+              "height": 700,
+              "bgColor": "",
+              "txtColor": "",
+              "ukey": "e6224292-e026-465c-a7ff-42734d6a1641"
+            }
+          }
+        });
+      </script>
+      <div id="ft-insta-brd">
+        <a href="https://fouita.com/website-widgets/instagram-feed" target="_blank">Embed Instagram Feed</a>
+        <a href="https://fouita.com" target="_blank">with Fouita</a>
+      </div>
     </div>
 
     <div class="instagram-cta">

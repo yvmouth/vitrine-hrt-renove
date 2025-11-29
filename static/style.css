@@ -680,6 +680,12 @@ ul {
   margin-top: 2rem;
 }
 
+.card-icon__svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
 /**************************************************************
  * 6. CARTES (NOS TECHNIQUES & POURQUOI NOUS CHOISIR)
  *************************************************************/
