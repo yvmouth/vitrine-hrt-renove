@@ -2029,21 +2029,23 @@ body.lightbox-open {
 .gallery-lightbox__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.35);  /* plus clair */
+  backdrop-filter: blur(3px);
 }
 
 .gallery-lightbox__dialog {
   position: relative;
   max-width: 960px;
+  width: min(960px, 96vw);
   margin: 2.5rem auto;
-  background: #020617;
+  background: #ffffff;
   border-radius: 24px;
-  border: 1px solid rgba(55, 65, 81, 0.9);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.35);
   padding: 1.6rem 2rem 1.7rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.3rem;
 }
 
@@ -2096,6 +2098,18 @@ body.lightbox-open {
   max-height: 70vh;
   border-radius: var(--radius-lg);
   object-fit: contain;
+  display: block;
+  margin: 0 auto;
+    opacity: 0;
+  transform: scale(0.98);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.gallery-lightbox__content img.is-visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .gallery-lightbox__caption {
@@ -2103,6 +2117,22 @@ body.lightbox-open {
   font-size: 0.86rem;
   color: #9ca3af;
 }
+
+.gallery-lightbox__tech {
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-primary);
+}
+
+.gallery-lightbox__caption {
+  margin-top: 0.3rem;
+  font-size: 0.86rem;
+  color: #4b5563; /* gris foncé lisible sur fond blanc */
+}
+
 
 /**************************************************************
  * 5. RESPONSIVE – GALERIE

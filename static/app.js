@@ -375,6 +375,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const lbNext = galleryLightbox.querySelector('[data-lightbox-next]');
     const lbImage = document.getElementById('lightbox-image');
     const lbCaption = document.getElementById('lightbox-caption');
+    const lbTech = document.getElementById('lightbox-tech');
+
+    const TECH_LABELS = {
+      'aerogommage': 'Aérogommage',
+      'thermolaquage': 'Thermolaquage',
+      'sablage-grenaillage': 'Sablage & Grenaillage',
+      'vaporblasting': 'Vaporblasting',
+      'cerakote': 'Cerakote',
+      'projet1': 'Projet phare 1',
+      'projet2': 'Projet phare 2'
+    };
 
     let currentGroup = [];
     let currentIndex = 0;
@@ -382,19 +393,44 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderGalleryLightbox() {
       if (!currentGroup.length || !lbImage) return;
       const item = currentGroup[currentIndex];
-      lbImage.src = item.src;
-      lbImage.alt = item.alt || '';
-      if (lbCaption) {
-        lbCaption.textContent = item.alt || '';
-      }
+
+      lbImage.classList.remove('is-visible');
+
+      requestAnimationFrame(() => {
+        lbImage.src = item.src;
+        lbImage.alt = item.alt || '';
+
+        if (lbCaption) {
+          lbCaption.textContent = item.alt || '';
+        }
+
+        if (lbTech) {
+          const label = item.techKey && TECH_LABELS[item.techKey];
+          if (label) {
+            lbTech.textContent = label;
+            lbTech.style.display = 'block';
+          } else {
+            lbTech.textContent = '';
+            lbTech.style.display = 'none';
+          }
+        }
+
+        requestAnimationFrame(() => {
+          lbImage.classList.add('is-visible');
+        });
+      });
     }
+
 
     function openFromButton(btn) {
       let selector = null;
+      let techKey = null;
 
       if (btn.dataset.gallery) {
+        techKey = btn.dataset.gallery;
         selector = `[data-gallery="${btn.dataset.gallery}"]`;
       } else if (btn.dataset.lightbox) {
+        techKey = btn.dataset.lightbox;
         selector = `[data-lightbox="${btn.dataset.lightbox}"]`;
       }
 
@@ -409,7 +445,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const img = b.querySelector('img');
         return {
           src: img ? img.src : '',
-          alt: img ? img.alt : ''
+          alt: img ? img.alt : '',
+          techKey: techKey
         };
       });
 
