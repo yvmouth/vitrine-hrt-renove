@@ -35,7 +35,7 @@
             <p class="project-card__eyebrow">Rénovation complète</p>
             <h2 class="project-card__title">Rénovation d’une moto de jsp c'est quoi la marque</h2>
             <p class="project-card__text">
-              Ceci est un texte qui est sensé décrire ce qui a été fait mais vu que je suis un ingénieur de merde je ne sais pas ce qui a été fait.
+              Ceci est un texte qui est sensé décrire ce qui a été fait mais vu que je suis un ingénieur de merde je ne sais pas ce que c'est.
             </p>
 
             <div class="project-card__thumbs">
@@ -84,12 +84,6 @@
                 >
               </button>
             </div>
-
-            <button class="btn btn-ghost project-card__cta"
-                    type="button"
-                    data-scroll-target="#techniques-gallery">
-              Voir plus de photos ↓
-            </button>
           </div>
         </article>
 
@@ -107,7 +101,7 @@
             <p class="project-card__eyebrow">Sâblage complet</p>
             <h2 class="project-card__title">Rénovation d’une vielle armoire</h2>
             <p class="project-card__text">
-              Apparemment c'est une vieille armoire qui a l'air nouvelle maintenant parce qu'on l'a sâblé.
+              Apparemment c'est une vieille armoire qui a l'air nouvelle maintenant parce qu'on l'a sâblée.
             </p>
 
             <div class="project-card__thumbs">
@@ -155,12 +149,6 @@
                 >
               </button>
             </div>
-
-            <button class="btn btn-ghost project-card__cta"
-                    type="button"
-                    data-scroll-target="#techniques-gallery">
-              Voir plus de photos ↓
-            </button>
           </div>
         </article>
 
@@ -313,56 +301,63 @@
           <header class="tech-block__header">
             <h3 class="tech-block__title">Sablage &amp; Grenaillage</h3>
               <p class="tech-block__desc">
-                Préparation de surface intensive pour une adhérence optimale des futurs traitements.
-              </p>
+              Préparation de surface intensive pour une adhérence optimale des futurs traitements.
+            </p>
           </header>
 
-          <div class="tech-carousel" data-tech="sablage-grenaillage">
+          <div class="tech-carousel" data-carousel data-tech="sablage-grenaillage">
             <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Image précédente">
               ‹
             </button>
 
-          <div class="tech-carousel__track" data-carousel-track>
-            <!-- Slide 1 -->
-            <div class="tech-carousel__slide is-active">
-              <button class="tech-carousel__image-btn"
-                type="button"
-                data-lightbox="sablage-grenaillage"
-                data-index="0">
-                <img
-                  src="{{ url_for('static', filename='img/galerie/sablage-1.jpg') }}"
-                  alt="Exemple de sablage – vue 1"
-                  loading="lazy"
-                >
-              </button>
+            <div class="tech-carousel__track" data-carousel-track>
+              <!-- Slide 1 -->
+              <div class="tech-carousel__slide is-active">
+                <button class="tech-carousel__image-btn"
+                        type="button"
+                        data-lightbox="sablage-grenaillage"
+                        data-index="0">
+                  <img
+                    src="{{ url_for('static', filename='img/galerie/sablage-1.jpg') }}"
+                    alt="Exemple de sablage – vue 1"
+                    loading="lazy"
+                  >
+                </button>
+              </div>
+
+              <!-- Slide 2 -->
+              <div class="tech-carousel__slide">
+                <button class="tech-carousel__image-btn"
+                        type="button"
+                        data-lightbox="sablage-grenaillage"
+                        data-index="1">
+                  <img
+                    src="{{ url_for('static', filename='img/galerie/sablage-2.jpg') }}"
+                    alt="Exemple de sablage – vue 2"
+                    loading="lazy"
+                  >
+                </button>
+              </div>
             </div>
 
-            <!-- Slide 2 -->
-            <div class="tech-carousel__slide">
-              <button class="tech-carousel__image-btn"
-                  type="button"
-                  data-lightbox="sablage-grenaillage"
-                  data-index="1">
-                <img
-                  src="{{ url_for('static', filename='img/galerie/sablage-2.jpg') }}"
-                  alt="Exemple de sablage – vue 2"
-                loading="lazy"
-                >
-              </button>
-            </div>
+            <button class="carousel-btn carousel-btn--next" type="button" aria-label="Image suivante">
+              ›
+            </button>
           </div>
 
-        <button class="carousel-btn carousel-btn--next" type="button" aria-label="Image suivante">
-        ›
-      </button>
-    </div>
-
-    <div class="tech-carousel__dots" role="tablist" aria-label="Navigation galerie sablage &amp; grenaillage">
-      <button class="tech-dot is-active" type="button" data-index="0" aria-label="Voir l’image 1"></button>
-      <button class="tech-dot" type="button" data-index="1" aria-label="Voir l’image 2"></button>
-    </div>
-  </article>
-
+          <div class="tech-carousel__dots"
+              role="tablist"
+              aria-label="Navigation galerie sablage &amp; grenaillage">
+            <button class="tech-dot is-active"
+                    type="button"
+                    data-index="0"
+                    aria-label="Voir l’image 1"></button>
+            <button class="tech-dot"
+                    type="button"
+                    data-index="1"
+                    aria-label="Voir l’image 2"></button>
+          </div>
+        </article>
 
         <!-- === VAPORBLASTING === -->
         <article class="tech-block" id="galerie-vaporblasting">
