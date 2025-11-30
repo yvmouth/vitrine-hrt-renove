@@ -2528,6 +2528,19 @@ body.lightbox-open {
   color: #94a3b8;
 }
 
+.Insta-dev {
+  color: inherit;             /* garde la couleur du texte */
+  text-decoration: none;       /* enlève le soulignement */
+  opacity: 1;                /* rendu discret */
+  transition: opacity 0.2s ease;
+  cursor: pointer;             /* curseur pointer, léger */
+}
+
+.Insta-dev:hover {
+  opacity: 1;                  /* visible uniquement au survol */
+}
+
+
 /* Footer responsive */
 @media (max-width: 900px) {
   .footer-main {
@@ -2709,10 +2722,3 @@ body.lightbox-open {
 .service-card {
   scroll-margin-top: 110px; /* ≈ hauteur du header + un peu de marge */
 }
-
-/* Si tes ancres sont sur d'autres éléments (ex: sections), tu peux utiliser : */
-/*
-[id] {
-  scroll-margin-top: 110px;
-}
-*/

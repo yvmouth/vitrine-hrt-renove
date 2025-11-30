@@ -588,16 +588,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector('.site-header');
 
     if (header) {
-      const SHOW_AFTER = 120; // px de scroll avant d'afficher la nav
+      const SHOW_AFTER = 120;
 
       const handleHeaderOnScroll = () => {
-        // Sur mobile / tablette → header toujours visible
         if (window.innerWidth <= 1023) {
           header.classList.add('is-visible');
           return;
         }
 
-        // Sur desktop → apparition progressive
         if (window.scrollY > SHOW_AFTER) {
           header.classList.add('is-visible');
         } else {
@@ -605,10 +603,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       };
 
-      // Premier check au chargement
       handleHeaderOnScroll();
 
-      // Mise à jour au scroll + au resize (changement mobile/desktop)
       window.addEventListener('scroll', handleHeaderOnScroll);
       window.addEventListener('resize', handleHeaderOnScroll);
     }
