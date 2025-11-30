@@ -2701,3 +2701,18 @@ body.lightbox-open {
   }
 }
 
+/**************************************************************
+ * COMPENSATION DU HEADER FIXE POUR LES ANCRES
+ **************************************************************/
+
+/* À adapter si tu préfères viser juste les cartes de services */
+.service-card {
+  scroll-margin-top: 110px; /* ≈ hauteur du header + un peu de marge */
+}
+
+/* Si tes ancres sont sur d'autres éléments (ex: sections), tu peux utiliser : */
+/*
+[id] {
+  scroll-margin-top: 110px;
+}
+*/

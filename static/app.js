@@ -613,5 +613,26 @@ document.addEventListener("DOMContentLoaded", () => {
       window.addEventListener('resize', handleHeaderOnScroll);
     }
   }
+  (function () {
+    const hash = window.location.hash;
+    if (!hash) return;
+
+    const target = document.querySelector(hash);
+    if (!target) return;
+
+    const header = document.querySelector('.site-header');
+    const headerHeight = header ? header.offsetHeight : 0;
+
+    // Petite temporisation pour laisser le temps aux images / fonts de se charger
+    setTimeout(() => {
+      const rect = target.getBoundingClientRect();
+      const offsetTop = rect.top + window.pageYOffset - headerHeight - 16; // -16px de marge visuelle
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }, 150);
+  })();
 
 });
