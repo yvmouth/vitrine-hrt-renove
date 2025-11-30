@@ -196,6 +196,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // 👉 SWIPE pour la lightbox SERVICES (mobile / tablette)
+  const servicesLightboxInner = lightbox.querySelector('.lightbox__inner');
+  if (servicesLightboxInner) {
+    let svTouchStartX = null;
+    let svTouchStartY = null;
+    const SV_SWIPE_THRESHOLD = 50;   // min déplacement horizontal
+    const SV_VERTICAL_LIMIT = 80;    // max vertical pour éviter conflit avec scroll
+
+    const handleSvTouchStart = (e) => {
+      if (window.innerWidth > 991) return;         // seulement mobile / tablette
+      if (e.touches.length !== 1) return;
+      svTouchStartX = e.touches[0].clientX;
+      svTouchStartY = e.touches[0].clientY;
+    };
+
+    const handleSvTouchEnd = (e) => {
+      if (window.innerWidth > 991) return;
+      if (svTouchStartX === null) return;
+
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchEndX - svTouchStartX;
+      const deltaY = touchEndY - svTouchStartY;
+
+      // On s'assure que c'est bien un geste horizontal
+      if (Math.abs(deltaX) > SV_SWIPE_THRESHOLD && Math.abs(deltaY) < SV_VERTICAL_LIMIT) {
+        if (deltaX < 0) {
+          // swipe vers la gauche → image suivante
+          goNextLb();
+        } else {
+          // swipe vers la droite → image précédente
+          goPrevLb();
+        }
+      }
+
+      svTouchStartX = null;
+      svTouchStartY = null;
+    };
+
+    servicesLightboxInner.addEventListener('touchstart', handleSvTouchStart, { passive: true });
+    servicesLightboxInner.addEventListener('touchend', handleSvTouchEnd, { passive: true });
+  }
+
   // Clic sur les images des carrousels de SERVICES pour ouvrir la lightbox
   const carouselSlides = document.querySelectorAll('.carousel__slide');
   carouselSlides.forEach(slide => {
@@ -274,7 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => observerReveal.observe(el));
   }
 
-    /* ----------------------------------------------------------
+  /* ----------------------------------------------------------
      GALERIE / TECHNIQUES – CARROUSELS + LIGHTBOX
   -----------------------------------------------------------*/
 
@@ -350,7 +393,6 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCarousel();
     }
 
-
     if (btnPrev) btnPrev.addEventListener('click', () => goTo(currentIndex - 1));
     if (btnNext) btnNext.addEventListener('click', () => goTo(currentIndex + 1));
 
@@ -420,7 +462,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
     }
-
 
     function openFromButton(btn) {
       let selector = null;
@@ -493,6 +534,48 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.key === 'ArrowRight') nextGalleryImage();
       if (e.key === 'ArrowLeft') prevGalleryImage();
     });
+
+    // 👉 SWIPE pour la lightbox GALERIE (mobile / tablette)
+    const galleryDialog = galleryLightbox.querySelector('.gallery-lightbox__dialog');
+    if (galleryDialog && lbNext && lbPrev) {
+      let glTouchStartX = null;
+      let glTouchStartY = null;
+      const GL_SWIPE_THRESHOLD = 50;
+      const GL_VERTICAL_LIMIT = 80;
+
+      const handleGlTouchStart = (e) => {
+        if (window.innerWidth > 991) return;
+        if (e.touches.length !== 1) return;
+        glTouchStartX = e.touches[0].clientX;
+        glTouchStartY = e.touches[0].clientY;
+      };
+
+      const handleGlTouchEnd = (e) => {
+        if (window.innerWidth > 991) return;
+        if (glTouchStartX === null) return;
+
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaX = touchEndX - glTouchStartX;
+        const deltaY = touchEndY - glTouchStartY;
+
+        if (Math.abs(deltaX) > GL_SWIPE_THRESHOLD && Math.abs(deltaY) < GL_VERTICAL_LIMIT) {
+          if (deltaX < 0) {
+            // gauche → image suivante
+            nextGalleryImage();
+          } else {
+            // droite → image précédente
+            prevGalleryImage();
+          }
+        }
+
+        glTouchStartX = null;
+        glTouchStartY = null;
+      };
+
+      galleryDialog.addEventListener('touchstart', handleGlTouchStart, { passive: true });
+      galleryDialog.addEventListener('touchend', handleGlTouchEnd, { passive: true });
+    }
   }
 
   /* ----------------------------------------------------------
